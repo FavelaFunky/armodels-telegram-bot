@@ -157,20 +157,24 @@ class ArmModelsParser:
                     formatted_hobbies = f"<blockquote><b>Увлечения и хобби:</b>\n" + '\n'.join(f"{line}" for line in hobbies_text.split('\n') if line.strip()) + "</blockquote>"
                     params['Увлечения и хобби'] = formatted_hobbies
 
-            # Фотографии
+            # Фотографии - берем только из основного слайдера, исключая миниатюры
             photos = []
-            img_tags = soup.find_all('img', {'data-src': True})
-            for img in img_tags:
-                src = img.get('data-src')
-                if src and ('models' in src or 'slides' in src):
-                    if not src.startswith('http'):
-                        if src.startswith('/storage'):
-                            src = self.BASE_URL + src
-                        elif src.startswith('/'):
-                            src = self.BASE_URL + src
-                        else:
-                            src = self.BASE_URL + '/' + src
-                    photos.append(src)
+            # Ищем основной контейнер слайдера
+            main_slider = soup.find('div', class_=lambda x: x and 'product-image-slider' in x)
+            if main_slider:
+                # Берем только изображения из основного слайдера
+                img_tags = main_slider.find_all('img', {'data-src': True})
+                for img in img_tags:
+                    src = img.get('data-src')
+                    if src and ('models' in src or 'slides' in src):
+                        if not src.startswith('http'):
+                            if src.startswith('/storage'):
+                                src = self.BASE_URL + src
+                            elif src.startswith('/'):
+                                src = self.BASE_URL + src
+                            else:
+                                src = self.BASE_URL + '/' + src
+                        photos.append(src)
 
             return {
                 'name': name,
