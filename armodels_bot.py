@@ -5,6 +5,7 @@ from parsers.models_parser import ModelsParser
 from parsers.teachers_parser import TeachersParser
 from parsers.partners_parser import PartnersParser
 from parsers.magazines_parser import MagazinesParser
+from parsers.projects_parser import ProjectsParser
 
 # Настройка логирования
 logging.basicConfig(
@@ -22,12 +23,14 @@ class ModelsTelegramBot:
         self.teachers_parser = TeachersParser()
         self.partners_parser = PartnersParser()
         self.magazines_parser = MagazinesParser()
+        self.projects_parser = ProjectsParser()
 
         # Кэши для данных
         self.models_cache = []
         self.teachers_cache = []
         self.partners_cache = []
         self.magazines_cache = []
+        self.projects_cache = {}
 
         # Регистрация обработчиков команд
         self.application.add_handler(CommandHandler("start", self.start))
@@ -35,9 +38,12 @@ class ModelsTelegramBot:
         self.application.add_handler(CommandHandler("teachers", self.teachers_command))
         self.application.add_handler(CommandHandler("partners", self.partners_command))
         self.application.add_handler(CommandHandler("magazines", self.magazines_command))
+        self.application.add_handler(CommandHandler("projects", self.projects_command))
         self.application.add_handler(CallbackQueryHandler(self.model_detail, pattern='^model_'))
         self.application.add_handler(CallbackQueryHandler(self.teacher_detail, pattern='^teacher_'))
         self.application.add_handler(CallbackQueryHandler(self.partner_detail, pattern='^partner_'))
+        self.application.add_handler(CallbackQueryHandler(self.project_detail, pattern='^project_'))
+        self.application.add_handler(CallbackQueryHandler(self.project_category, pattern='^category_'))
         self.application.add_handler(CallbackQueryHandler(self.magazine_detail, pattern='^magazine_'))
         self.application.add_handler(CallbackQueryHandler(self.photo_navigation, pattern='^photo_(prev|next)_'))
         self.application.add_handler(CallbackQueryHandler(self.back_to_models, pattern='^back_to_models$'))
@@ -45,6 +51,7 @@ class ModelsTelegramBot:
         self.application.add_handler(CallbackQueryHandler(self.back_to_partners, pattern='^back_to_partners$'))
         self.application.add_handler(CallbackQueryHandler(self.back_to_magazines, pattern='^back_to_magazines$'))
         self.application.add_handler(CallbackQueryHandler(self.back_to_main, pattern='^back_to_main$'))
+        self.application.add_handler(CallbackQueryHandler(self.back_to_projects, pattern='^back_to_projects$'))
         self.application.add_handler(CallbackQueryHandler(self.handle_pagination, pattern='^page_'))
         self.application.add_handler(CallbackQueryHandler(self.handle_filter, pattern='^filter_'))
 
@@ -56,6 +63,7 @@ class ModelsTelegramBot:
             "• /models — Список всех моделей с фильтрами\n"
             "• /teachers — Список преподавателей\n"
             "• /partners — Список партнеров агентства\n"
+            "• /projects — Проекты и мероприятия агентства\n"
             "• /magazines — Архив выпусков глянцевого журнала\n\n"
             "Выберите нужный раздел для просмотра информации.\n"
             "Все данные парсятся с официального сайта armodels.ru"
@@ -709,14 +717,19 @@ class ModelsTelegramBot:
 
         # Удаляем команду пользователя, если она сохранена
         command_message_id = context.user_data.get('command_message_id')
+        chat_id = context.user_data.get('chat_id') or query.message.chat_id
+
+        logger.info(f"back_to_main: command_message_id={command_message_id}, chat_id={chat_id}")
+
         if command_message_id:
             try:
                 await context.bot.delete_message(
-                    chat_id=query.message.chat_id,
+                    chat_id=chat_id,
                     message_id=command_message_id
                 )
+                logger.info(f"Команда пользователя удалена: message_id={command_message_id}")
             except Exception as e:
-                logger.debug(f"Не удалось удалить команду пользователя: {e}")
+                logger.error(f"Не удалось удалить команду пользователя: {e}")
 
         # Очищаем данные
         context.user_data.pop('current_model', None)
@@ -725,6 +738,8 @@ class ModelsTelegramBot:
         context.user_data.pop('current_page', None)
         context.user_data.pop('current_filter', None)
         context.user_data.pop('command_message_id', None)
+        context.user_data.pop('chat_id', None)
+        context.user_data.pop('projects_list_message_id', None)
 
     async def handle_pagination(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает пагинацию списка моделей"""
@@ -965,6 +980,311 @@ class ModelsTelegramBot:
             parse_mode='HTML',
             reply_markup=reply_markup
         )
+
+    async def projects_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает команду /projects"""
+        try:
+            # Получаем доступные категории
+            categories = self.projects_parser.get_categories()
+
+            # Создаем клавиатуру с категориями
+            keyboard = []
+
+            # Кнопка "Все проекты"
+            keyboard.append([InlineKeyboardButton("🎭 Все проекты", callback_data="category_all")])
+
+            # Кнопки для каждой категории
+            for category_code, category_name in categories.items():
+                emoji = self._get_category_emoji(category_code)
+                keyboard.append([InlineKeyboardButton(f"{emoji} {category_name}", callback_data=f"category_{category_code}")])
+
+            # Кнопка "Вернуться в главное меню"
+            keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            message_text = "🎭 <b>Проекты ARMODELS</b>\n\n"
+            message_text += "Выберите категорию проектов или просмотрите все проекты:"
+
+            # Определяем chat_id в зависимости от типа update
+            if hasattr(update, 'message') and update.message:
+                chat_id = update.message.chat_id
+                # Сохраняем ID команды и chat_id для удаления команды
+                context.user_data['command_message_id'] = update.message.message_id
+                context.user_data['chat_id'] = chat_id
+                logger.info(f"projects_command: Сохранен command_message_id={update.message.message_id}")
+                await update.message.reply_text(
+                    message_text,
+                    parse_mode='HTML',
+                    reply_markup=reply_markup
+                )
+            elif hasattr(update, 'callback_query') and update.callback_query:
+                chat_id = update.callback_query.message.chat_id
+                # Сохраняем chat_id для удаления команды (command_message_id уже должен быть сохранен)
+                context.user_data['chat_id'] = chat_id
+                existing_command_id = context.user_data.get('command_message_id')
+                logger.info(f"projects_command (callback): chat_id={chat_id}, existing command_message_id={existing_command_id}")
+                await context.bot.send_message(
+                    chat_id=chat_id,
+                    text=message_text,
+                    parse_mode='HTML',
+                    reply_markup=reply_markup
+                )
+            else:
+                return
+
+        except Exception as e:
+            logger.error(f"Ошибка при обработке команды /projects: {e}")
+            # Определяем chat_id для отправки сообщения об ошибке
+            if hasattr(update, 'message') and update.message:
+                chat_id = update.message.chat_id
+                await update.message.reply_text(
+                    "❌ Произошла ошибка при загрузке проектов. Попробуйте позже."
+                )
+            elif hasattr(update, 'callback_query') and update.callback_query:
+                chat_id = update.callback_query.message.chat_id
+                await context.bot.send_message(
+                    chat_id=chat_id,
+                    text="❌ Произошла ошибка при загрузке проектов. Попробуйте позже."
+                )
+
+    def _get_category_emoji(self, category_code: str) -> str:
+        """Возвращает эмодзи для категории проекта"""
+        emoji_map = {
+            'photo-projects': '📸',
+            'konkursi-krasoti': '👑',
+            'fashion-shows': '👗',
+            'advertising-shoots': '📹',
+            'interview': '🎤'
+        }
+
+        # Если category_code пустой или None, возвращаем иконку по умолчанию
+        if not category_code:
+            return '🎭'
+
+        return emoji_map.get(category_code, '🎭')
+
+    async def project_category(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает выбор категории проектов"""
+        query = update.callback_query
+        await query.answer()
+
+        # Сохраняем chat_id для удаления команды
+        context.user_data['chat_id'] = query.message.chat_id
+
+        category_code = query.data.replace('category_', '')
+
+        try:
+            # Определяем категорию для парсинга
+            category = None if category_code == 'all' else category_code
+
+            # Получаем проекты
+            if category not in self.projects_cache:
+                projects = self.projects_parser.parse_list(category)
+                self.projects_cache[category] = projects
+            else:
+                projects = self.projects_cache[category]
+
+            if not projects:
+                await query.delete_message()
+                await context.bot.send_message(
+                    chat_id=query.message.chat_id,
+                    text="📭 В этой категории пока нет проектов.",
+                    reply_markup=InlineKeyboardMarkup([[
+                        InlineKeyboardButton("🔙 Назад к категориям", callback_data="back_to_projects"),
+                        InlineKeyboardButton("🏠 Главное меню", callback_data="back_to_main")
+                    ]])
+                )
+                return
+
+            # Создаем сообщение со списком проектов
+            category_name = "Все проекты" if category_code == 'all' else self.projects_parser.get_categories().get(category_code, category_code)
+
+            # Получаем иконку для категории
+            category_emoji = self._get_category_emoji(category_code)
+
+            message_text = f"{category_emoji} <b>{category_name}</b>\n\n"
+            message_text += f"Найдено {len(projects)} проектов:\n\n"
+
+            # Создаем клавиатуру
+            keyboard = []
+
+            for idx, project in enumerate(projects):
+                # Обрезаем название если оно слишком длинное
+                title = project['title']
+                if len(title) > 30:
+                    title = title[:27] + "..."
+
+                # Получаем иконку для проекта
+                if category_code == 'all':
+                    # Для общего списка используем иконку категории проекта
+                    project_category = project.get('category')
+                    if not project_category:
+                        logger.warning(f"Проект '{title}' не имеет категории, используем по умолчанию")
+                        project_category = ''
+                    project_emoji = self._get_category_emoji(project_category)
+                else:
+                    # Для конкретной категории используем иконку этой категории
+                    project_emoji = self._get_category_emoji(category_code)
+
+                keyboard.append([InlineKeyboardButton(
+                    f"{project_emoji} {title}",
+                    callback_data=f"project_{category_code}_{idx}"
+                )])
+
+            # Кнопки навигации
+            keyboard.append([
+                InlineKeyboardButton("🔙 К категориям", callback_data="back_to_projects"),
+                InlineKeyboardButton("🏠 Главное меню", callback_data="back_to_main")
+            ])
+
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            # Удаляем старое сообщение и отправляем новое
+            await query.delete_message()
+            message = await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text=message_text,
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+            # Сохраняем ID нового сообщения для возможного удаления
+            context.user_data['projects_list_message_id'] = message.message_id
+
+        except Exception as e:
+            logger.error(f"Ошибка при обработке категории проектов {category_code}: {e}")
+            await query.delete_message()
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="❌ Произошла ошибка при загрузке проектов.",
+                reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("🔙 Назад к категориям", callback_data="back_to_projects"),
+                    InlineKeyboardButton("🏠 Главное меню", callback_data="back_to_main")
+                ]])
+            )
+
+    async def project_detail(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает просмотр деталей проекта"""
+        query = update.callback_query
+        await query.answer()
+
+        # Сохраняем chat_id для удаления команды
+        context.user_data['chat_id'] = query.message.chat_id
+
+        # Удаляем сообщение со списком проектов, если оно есть
+        projects_list_message_id = context.user_data.get('projects_list_message_id')
+        if projects_list_message_id:
+            try:
+                await context.bot.delete_message(
+                    chat_id=query.message.chat_id,
+                    message_id=projects_list_message_id
+                )
+            except Exception as e:
+                logger.debug(f"Не удалось удалить сообщение со списком проектов: {e}")
+            finally:
+                context.user_data.pop('projects_list_message_id', None)
+
+        # Парсим callback_data: project_{category}_{index}
+        parts = query.data.split('_')
+        if len(parts) < 3:
+            await query.delete_message()
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="❌ Ошибка в данных проекта."
+            )
+            return
+
+        category_code = parts[1]
+        project_idx = int(parts[2])
+
+        try:
+            # Определяем категорию для получения данных
+            category = None if category_code == 'all' else category_code
+
+            # Получаем проекты из кэша
+            if category not in self.projects_cache:
+                projects = self.projects_parser.parse_list(category)
+                self.projects_cache[category] = projects
+            else:
+                projects = self.projects_cache[category]
+
+            if project_idx < 0 or project_idx >= len(projects):
+                await query.delete_message()
+                await context.bot.send_message(
+                    chat_id=query.message.chat_id,
+                    text="❌ Проект не найден."
+                )
+                return
+
+            project = projects[project_idx]
+
+            # Получаем иконку для категории проекта
+            project_category = project.get('category', '')
+            category_emoji = self._get_category_emoji(project_category)
+
+            # Форматируем информацию о проекте
+            message_text = f"{category_emoji} <b>{project['title']}</b>\n\n"
+            message_text += f"📂 <b>Категория:</b> {project['category_name']}\n\n"
+
+            if project['description']:
+                message_text += f"📝 <b>Описание:</b>\n{project['description']}\n\n"
+
+            if project['detail_url']:
+                message_text += f"🔗 <a href=\"{project['detail_url']}\">Подробнее на сайте</a>"
+
+            # Кнопки навигации
+            category_callback = "category_all" if category_code == 'all' else f"category_{category_code}"
+            keyboard = [
+                [InlineKeyboardButton("🔙 К списку проектов", callback_data=category_callback)],
+                [InlineKeyboardButton("🏠 Главное меню", callback_data="back_to_main")]
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            # Если есть изображение, отправляем его с подписью
+            if project.get('image_url'):
+                await context.bot.send_photo(
+                    chat_id=query.message.chat_id,
+                    photo=project['image_url'],
+                    caption=message_text,
+                    parse_mode='HTML',
+                    reply_markup=reply_markup
+                )
+            else:
+                await context.bot.send_message(
+                    chat_id=query.message.chat_id,
+                    text=message_text,
+                    parse_mode='HTML',
+                    reply_markup=reply_markup
+                )
+
+        except Exception as e:
+            logger.error(f"Ошибка при загрузке деталей проекта {project_idx}: {e}")
+            category_callback = "category_all" if category_code == 'all' else f"category_{category_code}"
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="❌ Произошла ошибка при загрузке информации о проекте.",
+                reply_markup=InlineKeyboardMarkup([[
+                    InlineKeyboardButton("🔙 Назад", callback_data=category_callback),
+                    InlineKeyboardButton("🏠 Главное меню", callback_data="back_to_main")
+                ]])
+            )
+
+    async def back_to_projects(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает возврат к категориям проектов"""
+        query = update.callback_query
+        await query.answer()
+
+        # Удаляем текущее сообщение
+        await query.delete_message()
+
+        # Сохраняем chat_id для удаления команды
+        context.user_data['chat_id'] = query.message.chat_id
+
+        existing_command_id = context.user_data.get('command_message_id')
+        logger.info(f"back_to_projects: existing command_message_id={existing_command_id}")
+
+        # Показываем категории проектов
+        await self.projects_command(update, context)
 
     def run(self):
         """Запускает бота"""

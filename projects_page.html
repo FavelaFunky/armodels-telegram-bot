@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ru">
+
+<head>
+    <meta name="csrf-token" content="a5G0pfFuAz8dMJj1PymZIdJSkEBkEvoxJFoHlY4Q">
+    <title>ARMODELS.RU > Проекты</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Mog Umbala" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
+    <meta name="description" content="Фотопроекты, мастер-классы, модные показы, рекламные съёмки, интервью, юные блогеры и
+    другие проекты «ARMODELS»." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://armodels.ru/projects" />
+    <meta property="og:title" content="ARMODELS.RU > Проекты" />
+    <meta property="og:description" content="Фотопроекты, мастер-классы, модные показы, рекламные съёмки, интервью, юные блогеры и
+    другие проекты «ARMODELS»." />
+    <meta property="og:image" content="https://armodels.ru/images/projects/background.jpg" />
+
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="https://armodels.ru/images/favicon.svg" />
+    <!-- style sheets and font icons  -->
+    <link rel="stylesheet" type="text/css" href="https://armodels.ru/css/font-icons.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://armodels.ru/css/theme-vendors.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://armodels.ru/css/style.css?v=1.1" />
+    <link rel="stylesheet" type="text/css" href="https://armodels.ru/css/responsive.min.css" />
+    <script type="text/javascript" src="https://armodels.ru/js/jquery.min.js"></script>
+</head>
+
+<body data-mobile-nav-style="classic">
+        <div class="loader-wrapper">
+    <div class="loader">
+    </div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+
+<style>
+    .loader-wrapper {
+    --line-width: 5px;
+    --curtain-color: #17181c;
+    --outer-line-color: #a8dadc;
+    --middle-line-color: #457b9d;
+    --inner-line-color: #1d3557;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:9999;
+    }
+
+    .loader {
+    display:block;
+    position: relative;
+    top:50%;
+    left:50%;
+    /*   transform: translate(-50%, -50%); */
+    width:150px;
+    height:150px;
+    margin:-75px 0 0 -75px;
+    border:var(--line-width) solid transparent;
+    border-top-color: var(--outer-line-color);
+    border-radius:100%;
+    -webkit-animation: spinn 2s linear infinite;
+    animation: spinn 2s linear infinite;
+    z-index:10001;
+    }
+
+    .loader:before {
+    content:"";
+    position: absolute;
+    top:4px;
+    left:4px;
+    right:4px;
+    bottom:4px;
+    border:var(--line-width) solid transparent;
+    border-top-color: var(--inner-line-color);
+    border-radius:100%;
+    -webkit-animation: spinn 3s linear infinite;
+    animation: spinn 3s linear infinite;
+    }
+
+    .loader:after {
+    content:"";
+    position: absolute;
+    top:14px;
+    left:14px;
+    right:14px;
+    bottom:14px;
+    border:var(--line-width) solid transparent;
+    border-top-color: var(--middle-line-color);
+    border-radius:100%;
+    -webkit-animation: spinn 1.5s linear infinite;
+    animation: spinn 1.5s linear infinite;
+    }
+
+    @-webkit-keyframes spinn {
+    0%   {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+    }
+    @keyframes spinn {
+    0%   {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+    }
+
+    .loader-wrapper .loader-section {
+    position:fixed;
+    top:0;
+    background:var(--curtain-color);
+    width:51%;
+    height:100%;
+    z-index:1000;
+    }
+
+    .loader-wrapper .loader-section.section-left {
+    left:0
+    }
+    .loader-wrapper .loader-section.section-right {
+    right:0;
+    }
+
+    /* Loaded Styles */
+    .loaded .loader-wrapper .loader-section.section-left {
+    transform: translateX(-100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645,0.045,0.355,1.000);
+    }
+    .loaded .loader-wrapper .loader-section.section-right {
+    transform: translateX(100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645,0.045,0.355,1.000);
+    }
+    .loaded .loader {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+    }
+    .loaded .loader-wrapper {
+    visibility: hidden;
+    transform:translateY(-100%);
+    transition: all .3s 1s ease-out;
+    }
+</style>
+
+<script>
+    window.addEventListener('load',function(){
+    document.querySelector('body').classList.add("loaded")
+    });
+</script>
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-dark
+        bg-transparent     border-bottom border-color-white-transparent header-light fixed-top navbar-boxed header-reverse-scroll">
+        <div class="container-fluid nav-header-container">
+            <div class="col-auto col-sm-6 col-lg-1 me-auto ps-lg-0">
+                <a class="navbar-brand" href="https://armodels.ru">
+                    <img src="/storage/images/logotypes/01JKTY17QDQ1D72AZQRSQ1GGHS.png"
+                        data-src="/storage/images/logotypes/01JKTY17QDQ1D72AZQRSQ1GGHS.png"
+                        class="default-logo drop-shadow lazyload" />
+                    <img src="/storage/images/logotypes/01JKTY17QF5GRTPT49FV65GG09.png"
+                        data-src="/storage/images/logotypes/01JKTY17QF5GRTPT49FV65GG09.png" class="alt-logo drop-shadow lazyload" />
+                    <img src="/storage/images/logotypes/01JKTY17QF5GRTPT49FV65GG09.png"
+                        data-src="/storage/images/logotypes/01JKTY17QF5GRTPT49FV65GG09.png" class="mobile-logo drop-shadow lazyload" />
+                </a>
+            </div>
+            <div class="col-auto col-lg-9 menu-order px-lg-0">
+                <button class="navbar-toggler float-end" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav alt-font">
+                        <li class="nav-item dropdown ">
+                            <a href="https://armodels.ru" class="nav-link text-uppercase">Главная</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown ">
+                            <a href="https://armodels.ru/placement" class="nav-link text-uppercase">Журнал</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown simple-dropdown ">
+                            <a href="https://armodels.ru/models" class="nav-link text-uppercase">Модели</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown simple-dropdown ">
+                            <a href="https://armodels.ru/casting" id="casting-link"
+                                class="nav-link text-uppercase">Кастинг</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown simple-dropdown active">
+                            <a href="https://armodels.ru/projects" class="nav-link text-uppercase">Проекты</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown simple-dropdown ">
+                            <a href="https://armodels.ru/contacts" class="nav-link text-uppercase">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-auto col-lg-2 text-end pe-0 font-size-0">
+                <div class="header-button d-none d-sm-inline-block">
+                    <a href="tel:+79233323078"
+                        class="btn btn-fancy btn-very-small btn-tussock  btn-rounded letter-spacing-1px d-table d-lg-inline-block box-shadow-25">Позвонить</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+        <section class="big-section parallax overlap-height" style="background-image: url('images/projects/background.jpg')">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center">
+                    <h3 class="alt-font font-weight-500 text-white wow animate__fadeIn" data-wow-delay="0.2s">Наши проекты
+                    </h3>
+                    <h6 class="margin-4-rem-top font-weight-300 text-white wow animate__fadeIn" data-wow-delay="0.4s">
+                        Мы верим, что искусство, мода, бизнес и культура — это неотъемлемые части жизни каждого человека.
+                        Они делают нас лучше, расширяют горизонты и помогают нам понять мир вокруг нас. Наши работы — это
+                        способ поделиться любовью к этим вещам с другими. Мы хотим вдохновлять
+                        людей, мотивировать их к творчеству и показывать им, что мир может быть прекрасным.
+                    </h6>
+                </div>
+            </div>
+            <div class="row margin-9-rem-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                                                            <ul
+                                    class="blog-filter grid-filter nav nav-tabs justify-content-center border-0 text-uppercase font-weight-500 alt-font padding-6-rem-bottom md-padding-4-half-rem-bottom sm-padding-2-rem-bottom">
+                                    <li class="nav active"><a data-filter="*" href="#">Все проекты</a></li>
+                                                                            <li class="nav"><a data-filter=".photo-projects"
+                                                href="#">Фотопроекты</a></li>
+                                                                            <li class="nav"><a data-filter=".konkursi-krasoti"
+                                                href="#">Конкурсы красоты</a></li>
+                                                                            <li class="nav"><a data-filter=".fashion-shows"
+                                                href="#">Модные показы</a></li>
+                                                                            <li class="nav"><a data-filter=".advertising-shoots"
+                                                href="#">Рекламные съёмки</a></li>
+                                                                            <li class="nav"><a data-filter=".interview"
+                                                href="#">Интервью</a></li>
+                                                                    </ul>
+                                                    </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12 filter-content">
+                            <ul
+                                class="blog-grid blog-wrapper grid grid-loading grid-3col xl-grid-3col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-extra-large">
+                                <li class="grid-sizer"></li>
+                                                                                                            <li class="grid-item advertising-shoots wow animate__fadeIn"
+                                            data-wow-delay="0.1s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/advertising-shoots/deny-otkritih-dverey-armodels">
+                                                        <img data-src="/storage/images/projects/backgrounds/01K3RGY2NKTKPR7940HNW3N3ZV.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Рекламные съёмки
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/advertising-shoots/deny-otkritih-dverey-armodels"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«День открытых дверей ARMODELS»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Телекомпания ТВК</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/advertising-shoots/deny-otkritih-dverey-armodels">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item fashion-shows wow animate__fadeIn"
+                                            data-wow-delay="0.2s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/fashion-shows/outlet">
+                                                        <img data-src="/storage/images/projects/backgrounds/01K3RS7WBZRTH9PK3WHMJDMXD1.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Модные показы
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/fashion-shows/outlet"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Outlet»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        День открытых дверей ARMODELS: Яркие моменты и невероятные эмоции!</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/fashion-shows/outlet">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item fashion-shows wow animate__fadeIn"
+                                            data-wow-delay="0.3s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JYVPEYRZWMDKJPZAP8BE84AQ.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Модные показы
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Moscow Fashion Show »</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Moscow Fashion Show 14.06.2025</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item photo-projects wow animate__fadeIn"
+                                            data-wow-delay="0.4s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/photo-projects/zheleznogorsk">
+                                                        <img data-src="/storage/images/projects/backgrounds/01K3TE8QAVG5H92M4EFQ1VS675.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Фотопроекты
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/photo-projects/zheleznogorsk"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Железногорск»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                         Сила в единстве. Искусство в деталях.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/photo-projects/zheleznogorsk">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item photo-projects wow animate__fadeIn"
+                                            data-wow-delay="0.5s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/photo-projects/krasnoyarsk">
+                                                        <img data-src="/storage/images/projects/backgrounds/01K3TFRCPJ4DK8TZJ1ZRRXDPW9.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Фотопроекты
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/photo-projects/krasnoyarsk"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Красноярск»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Групповая фотосессия: Твой шанс засиять в команде звезд!
+</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/photo-projects/krasnoyarsk">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item photo-projects wow animate__fadeIn"
+                                            data-wow-delay="0.6s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/photo-projects/gruppovaya-saiomka">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JVAESWA5NHS2M3J8RG3TXW0E.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Фотопроекты
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/photo-projects/gruppovaya-saiomka"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Групповая съёмка»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Искусство групповых съемок: Как работают модели и для чего это нужно.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/photo-projects/gruppovaya-saiomka">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item advertising-shoots wow animate__fadeIn"
+                                            data-wow-delay="0.7s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/advertising-shoots/brend">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JYVMKNR4EK74J10YQZJTAM68.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Рекламные съёмки
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/advertising-shoots/brend"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Бренд»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Завершение третьего курса</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/advertising-shoots/brend">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item konkursi-krasoti wow animate__fadeIn"
+                                            data-wow-delay="0.8s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/konkursi-krasoti/yunaya-miss-i-mister-krasnoyarskiy-kray-2025">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JSPE2E8GXZDPFJJY1YF6AB8A.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Конкурсы красоты
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/konkursi-krasoti/yunaya-miss-i-mister-krasnoyarskiy-kray-2025"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Юная Мисс и Мистер Красноярский край 2025»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Яркие звезды Красноярского края: финал конкурса «Юные мисс и мистер Красноярский край 2025»
+</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/konkursi-krasoti/yunaya-miss-i-mister-krasnoyarskiy-kray-2025">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item fashion-shows wow animate__fadeIn"
+                                            data-wow-delay="0.9s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-09032025">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JPT9P3Z8FERH4ERGVB8VB5KN.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Модные показы
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-09032025"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Moscow Fashion Show 09.03.2025»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        &quot;Весна на Moscow Fashion Show: Творческий Взлет и Яркие Эмоции!&quot;</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-09032025">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item advertising-shoots wow animate__fadeIn"
+                                            data-wow-delay="0.10s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/advertising-shoots/mylittlequeen">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JPPJ9V1ZSGJ4N1SQD18XZVWP.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Рекламные съёмки
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/advertising-shoots/mylittlequeen"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«My Little Queen»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        &quot;Вечернее платье — это не просто одежда, это выражение вашей индивидуальности и стиля.&quot; </p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/advertising-shoots/mylittlequeen">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item fashion-shows wow animate__fadeIn"
+                                            data-wow-delay="0.11s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/fashion-shows/papst-marina">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JPQDFT1K8TM171NPF62YEV3Y.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Модные показы
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/fashion-shows/papst-marina"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Papst MARINA»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        &quot;Большое Счастье: Вдохновляющая коллекция детской одежды от Papst Marina на показе в Железногорске&quot;</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/fashion-shows/papst-marina">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item advertising-shoots wow animate__fadeIn"
+                                            data-wow-delay="0.12s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/advertising-shoots/2mekids">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JMYH4341GC9Z44TM5PST49QZ.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Рекламные съёмки
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/advertising-shoots/2mekids"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«2MEKIDS »</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Профессиональные фотосессии для дизайнеров и магазинов одежды: быстро, качественно и с широкой рекламой.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/advertising-shoots/2mekids">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item advertising-shoots wow animate__fadeIn"
+                                            data-wow-delay="0.13s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/advertising-shoots/blush-magazine">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JM9HB7MBDTT0225SK40X4N1X.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Рекламные съёмки
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/advertising-shoots/blush-magazine"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«BLUSH»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Контрасты природы: от золотых песков до снежных вихрей.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/advertising-shoots/blush-magazine">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item photo-projects wow animate__fadeIn"
+                                            data-wow-delay="0.14s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/photo-projects/snow-story">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JQB88SA2E3DVMCVYJZS6RAPG.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Фотопроекты
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/photo-projects/snow-story"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Snow story»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Снежная История: Волшебство Нежности и Легкости.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/photo-projects/snow-story">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item advertising-shoots wow animate__fadeIn"
+                                            data-wow-delay="0.15s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/advertising-shoots/foreign-magazines">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JM2E7MFBC5JWZDDMJP2FKCM7.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Рекламные съёмки
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/advertising-shoots/foreign-magazines"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Зарубежные журналы»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Международное признание: путь к успеху.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/advertising-shoots/foreign-magazines">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item advertising-shoots wow animate__fadeIn"
+                                            data-wow-delay="0.16s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/advertising-shoots/swanky-magazine">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JM9G5PFGS1E4MYGCG9GK0QCY.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Рекламные съёмки
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/advertising-shoots/swanky-magazine"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«SWANKY»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Волшебный мир глянца: Сказочные герои и модели на страницах фантазии.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/advertising-shoots/swanky-magazine">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item fashion-shows wow animate__fadeIn"
+                                            data-wow-delay="0.17s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-28092024">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JPSV5DVJ6CGVJVN13SJ850JT.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Модные показы
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-28092024"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Moscow Fashion Show 28.09.2024»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Модный Фестиваль: Искусство и Стиль на Moscow Fashion Show</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-28092024">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item fashion-shows wow animate__fadeIn"
+                                            data-wow-delay="0.18s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/fashion-shows/russkiy-stily">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JQBEE31QVC9CN4S5F23GP6DB.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Модные показы
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/fashion-shows/russkiy-stily"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Русский стиль»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Сибирские бренды в Красноярске.
+</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/fashion-shows/russkiy-stily">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item fashion-shows wow animate__fadeIn"
+                                            data-wow-delay="0.19s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-16062024">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JPT13R2G64M2BDMX1MRK8NTJ.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Модные показы
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-16062024"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Moscow Fashion Show 16.06.2024»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        &quot;Яркие моменты Moscow Fashion Show: Молодые звезды и новые коллекции на подиуме&quot;</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/fashion-shows/moscow-fashion-show-16062024">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item interview wow animate__fadeIn"
+                                            data-wow-delay="0.20s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/interview/lp-kids-tvk">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JQB5V3VXXSXXXNEPRZJQ55RZ.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Интервью
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/interview/lp-kids-tvk"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«LP KIDS ТВК»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Успешный визит моделей ARMODELS на программу &quot;Новое утро&quot;.
+</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/interview/lp-kids-tvk">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item photo-projects wow animate__fadeIn"
+                                            data-wow-delay="0.21s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/photo-projects/fashion">
+                                                        <img data-src="/storage/images/projects/backgrounds/01J29H4VGJWERPK9Z3P4D44HEP.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Фотопроекты
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/photo-projects/fashion"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Fashion»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Этот фотопроект занимает особое место в календаре мировой моды, превращая каждый месяц в праздник стиля и красоты.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/photo-projects/fashion">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item photo-projects wow animate__fadeIn"
+                                            data-wow-delay="0.22s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/photo-projects/lara-croft">
+                                                        <img data-src="/storage/images/projects/backgrounds/01J1FYYJ9XYJZK050TANEH57M9.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Фотопроекты
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/photo-projects/lara-croft"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Лара Крофт»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Участницы конкурса красоты «Миссис Красноярский край 2023» примерили образ знаменитой искательницы приключений.</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/photo-projects/lara-croft">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item interview wow animate__fadeIn"
+                                            data-wow-delay="0.23s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/interview/barbie-tvk">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JQB3ZGVBVVAZSK2P17JFFK86.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Интервью
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/interview/barbie-tvk"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Barbie ТВК»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Участие моделей ARMODELS в прямом эфире на ТВК</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/interview/barbie-tvk">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                                                                <li class="grid-item konkursi-krasoti wow animate__fadeIn"
+                                            data-wow-delay="0.24s">
+                                            <div class="blog-post border-radius-blog-post bg-white box-shadow-medium">
+                                                <div class="blog-post-image bg-extra-dark-gray">
+                                                    <a
+                                                        href="https://armodels.ru/projects/konkursi-krasoti/yunaya-miss-i-mister-krasnoyarskiy-kray-2022">
+                                                        <img data-src="/storage/images/projects/backgrounds/01JRYV0J71FEZFPYZNC9N281DP.jpg"
+                                                            src="https://armodels.ru/images/placeholder-project.png"
+                                                            alt="" class="lazyload">
+                                                    </a>
+                                                    <div class="blog-category main-font font-weight-500 box-shadow-10-2">
+                                                        Конкурсы красоты
+                                                    </div>
+                                                </div>
+                                                <div class="post-details padding-3-rem-lr padding-2-half-rem-tb">
+                                                    <a href="https://armodels.ru/projects/konkursi-krasoti/yunaya-miss-i-mister-krasnoyarskiy-kray-2022"
+                                                        class="font-weight-500 text-extra-medium text-extra-dark-gray margin-15px-bottom d-block">«Юная Мисс и Мистер Красноярский край 2022»</a>
+                                                    <p class="cuttedText cuttedText-3-lines m-0" style="min-height: 100px;">
+                                                        Заголовок: Вдохновение и Таланты: Региональный Конкурс Красоты «Юная Мисс и Мистер Красноярский край»</p>
+                                                    <div class="h-1px bg-medium-light-gray margin-25px-bottom w-100"></div>
+                                                    <a class="text-small text-extra-dark-gray font-weight-600 text-uppercase alt-font d-block"
+                                                        href="https://armodels.ru/projects/konkursi-krasoti/yunaya-miss-i-mister-krasnoyarskiy-kray-2022">Подробнее<i
+                                                            class="ti-arrow-right float-end font-weight-600"></i></a>
+                                                </div>
+                                            </div>
+                                        </li>
+                                                                                                </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer-dark bg-slate-blue">
+    <div class="footer-bottom padding-35px-tb">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-3 text-center text-md-start sm-margin-20px-bottom">
+                    <a href="https://armodels.ru" class="footer-logo">
+                        <img src="/storage/images/logotypes/01JKTY17QDQ1D72AZQRSQ1GGHS.png"
+                            data-at2x="/storage/images/logotypes/01JKTY17QDQ1D72AZQRSQ1GGHS.png" alt="" />
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 text-center sm-margin-20px-bottom">
+                    <span class="font-weight-400 d-inline-block align-middle margin-5px-right">Made with &nbsp;<i
+                            class="fas fa-heart text-radical-red"></i>&nbsp; by</span>
+                    <a href="mailto:mogumbala@gmail.com"
+                        class="alt-font font-weight-500 text-small d-inline-block text-white text-decoration-line-bottom-gradient">Mog
+                        Umbala<span class="bg-white"></span></a>
+                    <span
+                        class="alt-font font-weight-400 d-inline-block align-middle margin-5px-right">&nbsp;|&nbsp;&copy;
+                        2023</span>
+                </div>
+                <div class="col-12 col-md-3 text-center text-md-end">
+                    <div class="social-icon-style-12">
+                        <ul class="extra-small-icon light">
+                            <li>
+                                <a class="vk" href="https://vk.com/armodels" target="_blank"><i
+                                        class="fab fa-vk text-large"></i></a>
+                            </li>
+                            <li>
+                                <a class="telegram" href="https://t.me/armodels24" target="_blank"><i
+                                        class="fab fa-telegram-plane text-large"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+    <div id="cookieConsentPopup" class="bg-slate-blue text-center text-slate-blue-light padding-2-rem-tb">
+    <div class="container">
+        <p>
+            Нажимая на кнопку «Принять все файлы cookie», вы выражаете своё согласие на хранение файлов cookie на вашем устройстве. Это помогает нам улучшить работу сайта, обеспечивает удобство навигации, позволяет анализировать взаимодействие с сайтом и поддерживает наши маркетинговые
+            инициативы.
+        </p>
+        <a id="acceptCookies" class="btn btn-p btn-medium btn-transparent-tussock btn-round-edge-small">Принять все файлы cookie</a>
+    </div>
+</div>
+
+    <!-- start scroll to top -->
+    <a class="scroll-top-arrow" href="javascript:void(0);"><i class="feather icon-feather-arrow-up"></i></a>
+    <!-- end scroll to top -->
+
+    <!-- javascript -->
+
+    <script type="text/javascript" src="https://armodels.ru/js/theme-vendors.min.js"></script>
+    <script type="text/javascript" src="https://armodels.ru/js/main.js"></script>
+    <script type="text/javascript" src="https://armodels.ru/js/lazysizes.min.js" async=""></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const link = document.getElementById('casting-link');
+            const text = link.textContent;
+            link.innerHTML = '';
+
+            for (let i = 0; i < text.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = text[i];
+                span.style.animationDelay = `${i * 0.1}s`; // Задержка анимации для каждой буквы
+                link.appendChild(span);
+            }
+        });
+    </script>
+    <script>
+        fetch('/track-visitor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        });
+    </script>
+</body>
+
+</html>

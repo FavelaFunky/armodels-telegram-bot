@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html class="no-js" lang="ru">
+
+<head>
+    <meta name="csrf-token" content="hMtIilHFpks6djGg0sLI07OxkMmJEdXMwtJwDpJj">
+    <title>ARMODELS.RU > Главная</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="author" content="Mog Umbala" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1" />
+    <meta name="description" content="«ARMODELS» - глянцевый журнал и модельное агентство, предлагающие разнообразие проектов и
+    событий в мире моды. Узнайте о последних тенденциях, обучайтесь у ведущих экспертов индустрии и присоединяйтесь к нашим
+    эксклюзивным мероприятиям." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://armodels.ru" />
+    <meta property="og:title" content="ARMODELS.RU > Главная" />
+    <meta property="og:description" content="«ARMODELS» - глянцевый журнал и модельное агентство, предлагающие разнообразие проектов и
+    событий в мире моды. Узнайте о последних тенденциях, обучайтесь у ведущих экспертов индустрии и присоединяйтесь к нашим
+    эксклюзивным мероприятиям." />
+    <meta property="og:image" content="/storage/images/posters/home/01JYVKSG29BNMN9Q910SVD9T7E.jpg" />
+
+    <!-- favicon icon -->
+    <link rel="shortcut icon" href="https://armodels.ru/images/favicon.svg" />
+    <!-- style sheets and font icons  -->
+    <link rel="stylesheet" type="text/css" href="https://armodels.ru/css/font-icons.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://armodels.ru/css/theme-vendors.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://armodels.ru/css/style.css?v=1.1" />
+    <link rel="stylesheet" type="text/css" href="https://armodels.ru/css/responsive.min.css" />
+    <script type="text/javascript" src="https://armodels.ru/js/jquery.min.js"></script>
+</head>
+
+<body data-mobile-nav-style="classic">
+        <div class="loader-wrapper">
+    <div class="loader">
+    </div>
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+</div>
+
+<style>
+    .loader-wrapper {
+    --line-width: 5px;
+    --curtain-color: #17181c;
+    --outer-line-color: #a8dadc;
+    --middle-line-color: #457b9d;
+    --inner-line-color: #1d3557;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:9999;
+    }
+
+    .loader {
+    display:block;
+    position: relative;
+    top:50%;
+    left:50%;
+    /*   transform: translate(-50%, -50%); */
+    width:150px;
+    height:150px;
+    margin:-75px 0 0 -75px;
+    border:var(--line-width) solid transparent;
+    border-top-color: var(--outer-line-color);
+    border-radius:100%;
+    -webkit-animation: spinn 2s linear infinite;
+    animation: spinn 2s linear infinite;
+    z-index:10001;
+    }
+
+    .loader:before {
+    content:"";
+    position: absolute;
+    top:4px;
+    left:4px;
+    right:4px;
+    bottom:4px;
+    border:var(--line-width) solid transparent;
+    border-top-color: var(--inner-line-color);
+    border-radius:100%;
+    -webkit-animation: spinn 3s linear infinite;
+    animation: spinn 3s linear infinite;
+    }
+
+    .loader:after {
+    content:"";
+    position: absolute;
+    top:14px;
+    left:14px;
+    right:14px;
+    bottom:14px;
+    border:var(--line-width) solid transparent;
+    border-top-color: var(--middle-line-color);
+    border-radius:100%;
+    -webkit-animation: spinn 1.5s linear infinite;
+    animation: spinn 1.5s linear infinite;
+    }
+
+    @-webkit-keyframes spinn {
+    0%   {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+    }
+    @keyframes spinn {
+    0%   {
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    }
+    100% {
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    }
+    }
+
+    .loader-wrapper .loader-section {
+    position:fixed;
+    top:0;
+    background:var(--curtain-color);
+    width:51%;
+    height:100%;
+    z-index:1000;
+    }
+
+    .loader-wrapper .loader-section.section-left {
+    left:0
+    }
+    .loader-wrapper .loader-section.section-right {
+    right:0;
+    }
+
+    /* Loaded Styles */
+    .loaded .loader-wrapper .loader-section.section-left {
+    transform: translateX(-100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645,0.045,0.355,1.000);
+    }
+    .loaded .loader-wrapper .loader-section.section-right {
+    transform: translateX(100%);
+    transition: all 0.7s 0.3s cubic-bezier(0.645,0.045,0.355,1.000);
+    }
+    .loaded .loader {
+    opacity: 0;
+    transition: all 0.3s ease-out;
+    }
+    .loaded .loader-wrapper {
+    visibility: hidden;
+    transform:translateY(-100%);
+    transition: all .3s 1s ease-out;
+    }
+</style>
+
+<script>
+    window.addEventListener('load',function(){
+    document.querySelector('body').classList.add("loaded")
+    });
+</script>
+    <header>
+    <nav class="navbar navbar-expand-lg navbar-dark
+        bg-transparent     border-bottom border-color-white-transparent header-light fixed-top navbar-boxed header-reverse-scroll">
+        <div class="container-fluid nav-header-container">
+            <div class="col-auto col-sm-6 col-lg-1 me-auto ps-lg-0">
+                <a class="navbar-brand" href="https://armodels.ru">
+                    <img src="/storage/images/logotypes/01JKTY17QDQ1D72AZQRSQ1GGHS.png"
+                        data-src="/storage/images/logotypes/01JKTY17QDQ1D72AZQRSQ1GGHS.png"
+                        class="default-logo drop-shadow lazyload" />
+                    <img src="/storage/images/logotypes/01JKTY17QF5GRTPT49FV65GG09.png"
+                        data-src="/storage/images/logotypes/01JKTY17QF5GRTPT49FV65GG09.png" class="alt-logo drop-shadow lazyload" />
+                    <img src="/storage/images/logotypes/01JKTY17QF5GRTPT49FV65GG09.png"
+                        data-src="/storage/images/logotypes/01JKTY17QF5GRTPT49FV65GG09.png" class="mobile-logo drop-shadow lazyload" />
+                </a>
+            </div>
+            <div class="col-auto col-lg-9 menu-order px-lg-0">
+                <button class="navbar-toggler float-end" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                    <span class="navbar-toggler-line"></span>
+                </button>
+                <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                    <ul class="navbar-nav alt-font">
+                        <li class="nav-item dropdown active">
+                            <a href="https://armodels.ru" class="nav-link text-uppercase">Главная</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown ">
+                            <a href="https://armodels.ru/placement" class="nav-link text-uppercase">Журнал</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown simple-dropdown ">
+                            <a href="https://armodels.ru/models" class="nav-link text-uppercase">Модели</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown simple-dropdown ">
+                            <a href="https://armodels.ru/casting" id="casting-link"
+                                class="nav-link text-uppercase">Кастинг</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown simple-dropdown ">
+                            <a href="https://armodels.ru/projects" class="nav-link text-uppercase">Проекты</a>
+                        </li>
+                        <li
+                            class="nav-item dropdown simple-dropdown ">
+                            <a href="https://armodels.ru/contacts" class="nav-link text-uppercase">Контакты</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-auto col-lg-2 text-end pe-0 font-size-0">
+                <div class="header-button d-none d-sm-inline-block">
+                    <a href="tel:+79233323078"
+                        class="btn btn-fancy btn-very-small btn-tussock  btn-rounded letter-spacing-1px d-table d-lg-inline-block box-shadow-25">Позвонить</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+
+        <section class="p-0 position-relative mobile-height">
+        <div class="opacity-extra-medium-2 bg-slate-blue"></div>
+        <video muted loop class="video-bg html-video" poster="/storage/images/posters/home/01JYVKSG29BNMN9Q910SVD9T7E.jpg" preload="none">
+            <source type="video/mp4" src="/storage/videos/home/01JYVKMTXE9D0VZC9F0ZE53YB3.mp4">
+        </video>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div
+                    class="col-11 col-lg-8 col-md-8 position-relative full-screen d-flex flex-column justify-content-center text-center md-landscape-h-600px">
+                    <h6 class="font-weight-200 text-white text-uppercase letter-spacing-1px">Модельная карьера начинается с
+                    </h6>
+                    <h1 class="title-extra-large font-weight-200 text-white letter-spacing-3px">ARMODELS</h1>
+                    <div class="down-section">
+                        <a href="javascript:void(0);"
+                            class="html-video-play video-icon-box video-icon-large position-relative margin-40px-bottom xs-margin-20px-bottom">
+                            <span class="video-icon bg-slate-blue">
+                                <i class="play-icon icon-simple-line-control-play text-tussock m-0" aria-hidden="true"></i>
+                                <i class="pause-icon icon-simple-line-control-pause text-tussock m-0 p-0"
+                                    aria-hidden="true"></i>
+                                <span class="video-icon-sonar">
+                                    <span class="video-icon-sonar-bfr bg-golden opacity-7"></span>
+                                    <span class="video-icon-sonar-afr bg-golden"></span>
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end HERO section -->
+    <!-- start CATEGORY section -->
+    <section id="started-now" class="cover-background" style="background-image: url('images/home/background-category.jpg')">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div
+                    class="col-12 col-lg-8 text-lg-center margin-6-rem-bottom lg-margin-4-rem-bottom md-margin-3-rem-bottom xs-margin-1-rem-bottom wow animate__fadeIn">
+                    <span
+                        class="alt-font font-weight-500 text-golden text-uppercase margin-15px-bottom d-inline-block sm-margin-5px-bottom">Наши
+                        проекты</span>
+                    <h5 class="alt-font font-weight-500 text-extra-dark-gray">Мы создаем не просто проекты — мы создаем
+                        впечатления</h5>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid padding-90px-lr lg-padding-15px-lr xs-padding-15px-lr">
+            <div class="row">
+                <div class="col-12 filter-content xs-no-padding-lr">
+                    <ul
+                        class="blog-grid blog-wrapper grid grid-loading grid-3col xl-grid-3col lg-grid-3col md-grid-2col sm-grid-2col xs-grid-1col gutter-double-extra-large">
+                        <li class="grid-sizer"></li>
+                                                                                    <li class="grid-item">
+                                    <div class="blog-post blog-category-style-01 border-radius-blog-post box-shadow-large-2 wow animate__fadeIn"
+                                        data-wow-delay="0.1s">
+                                        <div class="blog-image bg-extra-medium-slate-blue">
+                                            <img data-src="/storage/images/category-projects/01JKTYFX0874V10A3FZZR3G9NF.jpg"
+                                                src="https://armodels.ru/images/placeholder2.png" alt="Фотопроекты"
+                                                class="lazyload" />
+                                        </div>
+                                        <div
+                                            class="blog-post-details d-flex justify-content-start align-items-end padding-45px-all">
+                                            <div
+                                                class="post-details bg-white main-font text-very-small font-weight-500 text-uppercase text-black box-shadow-10 d-inline-block padding-10px-tb padding-25px-lr">
+                                                Фотопроекты
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                                                                                                <li class="grid-item">
+                                    <div class="blog-post blog-category-style-01 border-radius-blog-post box-shadow-large-2 wow animate__fadeIn"
+                                        data-wow-delay="0.2s">
+                                        <div class="blog-image bg-extra-medium-slate-blue">
+                                            <img data-src="/storage/images/category-projects/01JKV015CD4TY25K8NS332XMXF.jpg"
+                                                src="https://armodels.ru/images/placeholder2.png" alt="Конкурсы красоты"
+                                                class="lazyload" />
+                                        </div>
+                                        <div
+                                            class="blog-post-details d-flex justify-content-start align-items-end padding-45px-all">
+                                            <div
+                                                class="post-details bg-white main-font text-very-small font-weight-500 text-uppercase text-black box-shadow-10 d-inline-block padding-10px-tb padding-25px-lr">
+                                                Конкурсы красоты
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                                                                                                <li class="grid-item">
+                                    <div class="blog-post blog-category-style-01 border-radius-blog-post box-shadow-large-2 wow animate__fadeIn"
+                                        data-wow-delay="0.3s">
+                                        <div class="blog-image bg-extra-medium-slate-blue">
+                                            <img data-src="/storage/images/category-projects/01JKTZ3GT8J5ZY8SKWSS4K238P.jpg"
+                                                src="https://armodels.ru/images/placeholder2.png" alt="Модные показы"
+                                                class="lazyload" />
+                                        </div>
+                                        <div
+                                            class="blog-post-details d-flex justify-content-start align-items-end padding-45px-all">
+                                            <div
+                                                class="post-details bg-white main-font text-very-small font-weight-500 text-uppercase text-black box-shadow-10 d-inline-block padding-10px-tb padding-25px-lr">
+                                                Модные показы
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                                                                                                <li class="grid-item">
+                                    <div class="blog-post blog-category-style-01 border-radius-blog-post box-shadow-large-2 wow animate__fadeIn"
+                                        data-wow-delay="0.1s">
+                                        <div class="blog-image bg-extra-medium-slate-blue">
+                                            <img data-src="/storage/images/category-projects/01JKTZ4YRVXF6SB2AGYGXRH0W6.jpg"
+                                                src="https://armodels.ru/images/placeholder2.png" alt="Рекламные съёмки"
+                                                class="lazyload" />
+                                        </div>
+                                        <div
+                                            class="blog-post-details d-flex justify-content-start align-items-end padding-45px-all">
+                                            <div
+                                                class="post-details bg-white main-font text-very-small font-weight-500 text-uppercase text-black box-shadow-10 d-inline-block padding-10px-tb padding-25px-lr">
+                                                Рекламные съёмки
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                                                                                                <li class="grid-item">
+                                    <div class="blog-post blog-category-style-01 border-radius-blog-post box-shadow-large-2 wow animate__fadeIn"
+                                        data-wow-delay="0.2s">
+                                        <div class="blog-image bg-extra-medium-slate-blue">
+                                            <img data-src="/storage/images/category-projects/01JKTYV49AZK9466141N8JXMZK.jpg"
+                                                src="https://armodels.ru/images/placeholder2.png" alt="Интервью"
+                                                class="lazyload" />
+                                        </div>
+                                        <div
+                                            class="blog-post-details d-flex justify-content-start align-items-end padding-45px-all">
+                                            <div
+                                                class="post-details bg-white main-font text-very-small font-weight-500 text-uppercase text-black box-shadow-10 d-inline-block padding-10px-tb padding-25px-lr">
+                                                Интервью
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                                                                                                <li class="grid-item">
+                                    <div class="blog-post blog-category-style-01 border-radius-blog-post box-shadow-large-2 wow animate__fadeIn"
+                                        data-wow-delay="0.3s">
+                                        <div class="blog-image bg-extra-medium-slate-blue">
+                                            <img data-src="/storage/images/category-projects/01JKTZPDJZVW29V2PA2HRZWSFZ.jpg"
+                                                src="https://armodels.ru/images/placeholder2.png" alt="Юные блогеры"
+                                                class="lazyload" />
+                                        </div>
+                                        <div
+                                            class="blog-post-details d-flex justify-content-start align-items-end padding-45px-all">
+                                            <div
+                                                class="post-details bg-white main-font text-very-small font-weight-500 text-uppercase text-black box-shadow-10 d-inline-block padding-10px-tb padding-25px-lr">
+                                                Юные блогеры
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                                                        </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center margin-6-rem-top xs-margin-3-rem-top">
+                    <a href="https://armodels.ru/projects"
+                        class="section-link btn btn-large btn-fancy btn-transparent-black btn-shadow btn-slide-right-bg btn-round-edge font-weight-500 wow animate__bounceInLeft">Посмотреть
+                        все проекты<span class="bg-black"></span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end CATEGORY section -->
+    <!-- start CASTING section -->
+    <section class="parallax" style="background-image: url('images/home/casting.jpg')">
+        <div class="opacity-medium bg-transparent-black-light"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-xl-7 col-lg-8 col-md-10 position-relative wow animate__fadeIn">
+                    <div
+                        class="text-center bg-transparent-black border-radius-6px box-shadow-large-2 padding-7-rem-all sm-padding-5-rem-all xs-padding-4-rem-tb xs-padding-2-rem-lr">
+                        <div
+                            class="cd-headline clip align-items-center text-center alt-font font-weight-600 text-golden text-uppercase margin-15px-bottom d-inline-block sm-margin-5px-bottom">
+                            <span>Кастинг в</span>
+                            <span class="cd-words-wrapper text-golden">
+                                                                    <b
+                                        class="padding-5px-bottom is-visible">Красноярске</b>
+                                                                    <b
+                                        class="padding-5px-bottom is-hidden">Сосновоборске</b>
+                                                                    <b
+                                        class="padding-5px-bottom is-hidden">Железногорске</b>
+                                                                    <b
+                                        class="padding-5px-bottom is-hidden">Дивногорске</b>
+                                                                    <b
+                                        class="padding-5px-bottom is-hidden">Усть-Илимск</b>
+                                                            </span>
+                        </div>
+                        <h5 class="alt-font font-weight-500 margin-35px-bottom text-white w-100 xl-w-100">Станьте
+                            частью нашей большой команды</h5>
+                        <p class="xl-w-100 text-white-90 margin-25px-bottom">Мы открываем набор детей возрастом от 4
+                            до 15 лет, а также девушек и парней от 15 до 20 лет с ростом не менее 163 см.</p>
+                        <p class="xl-w-100 text-white-90 margin-35px-bottom xs-margin-25px-bottom">
+                            «ARMODELS» — это не просто школа моделей, это место, где каждый открывает себя с новых сторон,
+                            прорабатывает свои страхи, приобретает навыки и любовь к себе, развивает себя как личность и
+                            стремится к популярности.
+                        </p>
+                        <a href="https://armodels.ru/casting"
+                            class="btn btn-link btn-extra-large font-weight-600 text-golden letter-spacing-1px wow animate__fadeIn">Заполнить
+                            анкету</a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end section -->
+    <!-- start COVERS section -->
+    <section class="big-section bg-seashell position-relative">
+        <div class="col-12 overflow-hidden alt-font font-weight-600 text-white text-overlap-style-03 letter-spacing-minus-3px d-none d-lg-block wow animate__fadeIn"
+            data-wow-delay="0.9s">style</div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-xl-4 col-lg-4 position-relative md-margin-4-rem-bottom xs-margin-3-rem-bottom wow animate__fadeIn"
+                    data-wow-delay="0.4s">
+                    <span
+                        class="alt-font font-weight-500 text-golden text-uppercase margin-15px-bottom d-inline-block sm-margin-5px-bottom">Глянцевый
+                        журнал</span>
+                    <h5 class="alt-font font-weight-500 text-extra-dark-gray w-80 sm-w-100">Воплощение элегантности, стиля
+                        и красоты</h5>
+                    <p class="text-dark-gray text-large-2 xs-margin-15px-bottom w-100 mb-0">Скачайте наши глянцевые журналы
+                        и погрузитесь в потрясающий мир моды. Вас ждут захватывающие фотосессии, эксклюзивные материалы и
+                        непревзойдённые образы.</p>
+                </div>
+                <div class="col-12 col-lg-7 offset-xl-1 no-padding wow animate__fadeInRight" data-wow-delay="0.4s">
+                    <div class="testimonials-carousel-style-01 swiper-simple-arrow-style-1">
+                        <div class="swiper-container padding-15px-all white-move"
+                            data-slider-options='{ "loop": true, "slidesPerView": 1.25, "spaceBetween": 30, "observer": true, "observeParents": true, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "992": { "slidesPerView": 3, "spaceBetween": 40 }, "768": { "slidesPerView": 2 } }, "effect": "slide" }'>
+                            <div class="swiper-wrapper">
+                                                                                                            <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01JKR21W92F9Y8JG310CHN6QN4.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #9
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        январе 2025
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v9.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                                                                <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01J1AN93NEX1X2ZQA5XPJYJCWD.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #8
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        июне 2024
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v8.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                                                                <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01J1AN7R4SSCTTN0B2ZQ37JTFK.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #7
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        марте 2024
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v7.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                                                                <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01J1AN5N2YWZG13KT020WMT6NM.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #6
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        декабре 2023
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v6.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                                                                <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01J1AN3V2KG8AA8DRJ7JCQKA8J.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #5
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        августе 2023
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v5.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                                                                <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01J1AN2BWTP1A8876F9VGSQNCQ.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #4
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        мае 2023
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v4.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                                                                <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01J1AMXGGEPQ8DJ7AEGE13DKCE.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #3
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        марте 2023
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v3.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                                                                <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01J19PDDK8EV0JZYYXY4YRFCG5.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #2
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        январе 2023
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v2.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                                                                <div
+                                            class="swiper-slide interactive-banners-style-07 border-radius-6px box-shadow-15 overflow-hidden">
+                                            <div class="interactive-banners-box bg-extra-dark-gray">
+                                                <div class="interactive-banners-box-image">
+                                                                                                            <img data-src="/storage/images/magazines/01J19PEZ2TJRJ4FQE05JNCYCQQ.jpg"
+                                                            src="https://armodels.ru/images/placeholder.png" alt=""
+                                                            class="lazyload" />
+                                                                                                        <div class="overlay-bg bg-transparent-gradiant-white-black2"></div>
+                                                </div>
+                                                <div
+                                                    class="fancy-text-content padding-55px-lr md-padding-40px-lr sm-padding-30px-lr">
+                                                    <span
+                                                        class="text-extra-small alt-font text-white text-uppercase padding-5px-tb padding-15px-lr border-radius-magazine-category bg-tussock margin-25px-bottom font-weight-400 d-inline-block">
+                                                        Выпуск #1
+                                                    </span>
+                                                    <div
+                                                        class="alt-font font-weight-500 text-extra-large text-white margin-20px-bottom w-90">
+                                                        Журнал вышел в<br />
+                                                        ноябре 2022
+                                                    </div>
+                                                                                                            <a href="/storage/files/magazines/ARMODELS-v1.pdf"
+                                                            class="btn btn-very-small btn-white letter-spacing-1px d-table d-lg-inline-block margin-15px-top btn-round-edge-small"
+                                                            download>
+                                                            <i class="fa fa-arrow-down left-icon"></i>Скачать
+                                                        </a>
+                                                                                                    </div>
+                                            </div>
+                                        </div>
+                                                                                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end COVERS section -->
+    <!-- start section -->
+    <section class="parallax one-half-screen md-h-450px sm-h-350px" data-parallax-background-ratio="0.5"
+        style="background-image: url('images/home/placement.jpg')">
+        <div class="opacity-light bg-extra-dark-gray"></div>
+    </section>
+    <!-- end section -->
+    <!-- start section -->
+    <section class="pb-0 overflow-visible">
+        <div class="container">
+            <div class="overlap-section wow animate__flipInX" data-wow-delay="0.2s">
+                <div
+                    class="z-index-6 bg-yellow-ochre box-shadow-25 border-radius-10px padding-4-rem-tb sm-padding-2-rem-lr padding-5-rem-lr">
+                    <div class="row no-gutters align-items-center text-center">
+                        <div class="col-12 col-xl-9 col-md-7 text-xl-start text-md-start m-xl-0 sm-margin-30px-bottom">
+                            <h6 class="cd-headline loading-bar text-white m-0">
+                                <span>Хочешь сиять на</span>
+                                <span class="cd-words-wrapper">
+                                    <b class="is-visible font-weight-400">обложке</b>
+                                    <b class="font-weight-400">страницах</b>
+                                    <b class="font-weight-400">развороте</b>
+                                </span>
+                                <span>глянцевого журнала?</span>
+                            </h6>
+                        </div>
+                        <div class="col-12 col-xl-3 col-md-5 text-md-end text-xl-end">
+                            <a href="https://armodels.ru/placement"
+                                class="btn btn-large btn-white btn-slide-right-bg btn-rounded box-shadow-small d-table d-lg-inline-block md-margin-auto-lr">Конечно,
+                                хочу!<span class="bg-yellow-ochre"></span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end section -->
+    <!-- start teacher section -->
+    <section class="padding-6-rem-top">
+        <div class="container">
+            <div class="row justify-content-lg-center">
+                <div
+                    class="col-12 col-lg-8 text-lg-center margin-6-rem-bottom lg-margin-4-rem-bottom md-margin-3-rem-bottom xs-margin-2-rem-bottom wow animate__fadeIn">
+                    <span
+                        class="alt-font font-weight-500 text-golden text-uppercase margin-15px-bottom d-inline-block sm-margin-5px-bottom">Наши
+                        преподаватели</span>
+                    <h5 class="alt-font font-weight-500 text-extra-dark-gray">Опытные наставники помогут вам освоить все
+                        аспекты модельного искусства</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col no-padding">
+                    <div class="swiper-container padding-15px-all"
+                        data-slider-options='{ "loop": false, "slidesPerView": 1.25, "spaceBetween": 30, "observer": true, "observeParents": true, "autoplay": { "delay": 5000, "disableOnInteraction": false }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 4 }, "992": { "slidesPerView": 3 }, "768": { "slidesPerView": 2 } } }'>
+                        <div id="swiper-wrapper-teacher" class="swiper-wrapper white-move wow animate__fadeIn"
+                            data-wow-delay="0.4s">
+                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01J19PHS7NMH22X12QP784SXF9.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Василина Зюзикова"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Василина
+                                                        Зюзикова</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Преподаватель по дефиле</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01J1ANJGR5CN0FDSZF6J1HVMGV.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Алёна Станчайтис"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Алёна
+                                                        Станчайтис</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Преподаватель по этикету и правополушарному рисованию</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01J1ANM3R1WNMHG1CPKQE9R4XJ.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Анастасия Рыбакова"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Анастасия
+                                                        Рыбакова</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Преподаватель по фотопозированию и дефиле</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                                                                                                                                        <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01J1ANW70C9GWA5QSBXVGYN2BJ.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Анастасия Огонёк"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Анастасия
+                                                        Огонёк</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Визажист ARMODELS</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01J1ANXAAWNNJVW9NAKH6YQXJ2.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Любовь Коршунова"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Любовь
+                                                        Коршунова</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Администратор</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01K2EQRJE508QP0XT7H0T26XB2.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Илона Лукьянова"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Илона
+                                                        Лукьянова</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Специалист по фотопозированию</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01K2ESTN8EKCHSCA3FZK37NQB4.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Таисия Абросимова"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Таисия
+                                                        Абросимова</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Специалист по дефиле</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01K2ERTK7T10ZB8KRSKBSJ34QV.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Екатерина Иванова"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Екатерина
+                                                        Иванова</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Специалист по фотопозированию в категории Fashion</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01K2ESB5Z8HA1NRPG6VG1XT3N4.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Полина Коровякина"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Полина
+                                                        Коровякина</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Хореограф </span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                                                                <div class="swiper-slide border-radius-5px box-shadow-10 wow animate__fadeIn">
+                                        <div class="col team-style-01 text-start ">
+                                            <figure class="border-radius-5px">
+                                                <div class="team-member-image">
+                                                    <img data-src="/storage/images/teachers/01K3TGN8Q5NM39JFVAXYHY5HVG.jpg"
+                                                        src="https://armodels.ru/images/placeholder.png"
+                                                        alt="Анастасия Гончарова"
+                                                        class="lazyload" />
+                                                    <div
+                                                        class="team-overlay bg-transparent-gradiant-white-black border-radius-5px">
+                                                    </div>
+                                                </div>
+                                                <figcaption class="d-flex flex-column padding-30px-all">
+                                                    <span
+                                                        class="team-title d-block padding-one-bottom alt-font text-extra-medium text-white font-weight-500 mt-auto">Анастасия
+                                                        Гончарова</span>
+                                                    <span
+                                                        class="team-sub-title d-block text-medium text-white-transparent alt-font">Фотограф ARMODELS</span>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                                                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end teacher section -->
+    <!-- start TELEGRAM section -->
+    <section class="big-section parallax overlap-height" data-parallax-background-ratio="0.5"
+        style="background-image: url('images/home/telegram.jpg')">
+        <div class="opacity-medium bg-extra-dark-gray"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-7 text-center z-index-1 overlap-gap-section">
+                    <h3 class="text-white-90 font-weight-500 margin-35px-bottom wow animate__fadeIn">Присоединяйся к нашей
+                        группе в Telegram</h3>
+                    <p class="text-white-70 font-weight-300 text-extra-large-2 w-80 mx-auto line-height-32px margin-45px-bottom sm-w-100 wow animate__fadeIn"
+                        data-wow-delay="0.2s">Получай эксклюзивную информацию о новых акциях и мероприятиях быстрее всех
+                    </p>
+                    <a href="https://t.me/armodels24" target="_blank"
+                        class="btn btn-large btn-white btn-rounded btn-slide-right-bg wow animate__zoomIn"
+                        data-wow-delay="0.3s">Вступить<span class="btn-transparent-white"></span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end TELEGRAM section -->
+    <!-- start partners section -->
+    <section>
+        <div class="container">
+            <div class="row justify-content-lg-center">
+                <div
+                    class="col-12 col-lg-8 text-lg-center margin-6-rem-bottom lg-margin-4-rem-bottom md-margin-3-rem-bottom xs-margin-1-rem-bottom wow animate__fadeIn">
+                    <span
+                        class="alt-font font-weight-500 text-golden text-uppercase margin-15px-bottom d-inline-block sm-margin-5px-bottom">Наши
+                        партнёры</span>
+                    <h5 class="alt-font font-weight-500 text-extra-dark-gray">Партнерство и сотрудничество: ключевые
+                        факторы успеха и развития</h5>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 no-padding">
+                    <div class="swiper-container padding-15px-all text-center"
+                        data-slider-options='{ "slidesPerView": 2, "spaceBetween": 20, "loop": false, "autoplay": { "delay": 3000, "disableOnInteraction": false }, "keyboard": { "enabled": true, "onlyInViewport": true }, "breakpoints": { "1200": { "slidesPerView": 4 }, "992": { "slidesPerView": 3 }, "768": { "slidesPerView": 3 } } }'>
+                        <div id="swiper-wrapper-partners" class="swiper-wrapper white-move wow animate__fadeIn"
+                            data-wow-delay="0.4s">
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                            <a href="https://vk.com/moscowfashionshow" target="_blank" rel="noopener noreferrer">
+                                                                                            <img class="border-radius-5px lazyload"
+                                                    data-src="/storage/images/partners/01JPT0DRRS8JDW53W15QRA583T.jpg"
+                                                    src="https://armodels.ru/images/placeholder-partners.png"
+                                                    alt="Moscow Fashion Show" />
+                                                                                    </a>
+                                                                    </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                            <a href="https://vk.com/my_little_queen24" target="_blank" rel="noopener noreferrer">
+                                                                                            <img class="border-radius-5px lazyload"
+                                                    data-src="/storage/images/partners/01JPPMZNSZMH2HW4HCCAA6G2ZZ.jpg"
+                                                    src="https://armodels.ru/images/placeholder-partners.png"
+                                                    alt="My Little Queen" />
+                                                                                    </a>
+                                                                    </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                            <a href="https://vk.com/club220671833" target="_blank" rel="noopener noreferrer">
+                                                                                            <img class="border-radius-5px lazyload"
+                                                    data-src="/storage/images/partners/01JMYFW54DM6S11VD6HVWBNGYK.jpg"
+                                                    src="https://armodels.ru/images/placeholder-partners.png"
+                                                    alt="Дизайнер" />
+                                                                                    </a>
+                                                                    </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                            <a href="https://krasbezsirot.ru/" target="_blank" rel="noopener noreferrer">
+                                                                                            <img class="border-radius-5px lazyload"
+                                                    data-src="/storage/images/partners/01JKZJN98BQYQA0FWE8HY4ZRGD.jpg"
+                                                    src="https://armodels.ru/images/placeholder-partners.png"
+                                                    alt="Жёлтый аист" />
+                                                                                    </a>
+                                                                    </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                                                                        <img class="border-radius-5px lazyload"
+                                                data-src="/storage/images/partners/01J1APA7H0DWD7WAKN1MQM6NCD.jpg"
+                                                src="https://armodels.ru/images/placeholder-partners.png"
+                                                alt="solen jewelry" />
+                                                                                                            </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                                                                        <img class="border-radius-5px lazyload"
+                                                data-src="/storage/images/partners/01J1AP97PZS9A4TGX5HTYC840B.jpg"
+                                                src="https://armodels.ru/images/placeholder-partners.png"
+                                                alt="rd" />
+                                                                                                            </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                            <a href="https://onlinesadik.com/" target="_blank" rel="noopener noreferrer">
+                                                                                            <img class="border-radius-5px lazyload"
+                                                    data-src="/storage/images/partners/01J1AP8REYC5YGH283DZTBG0HJ.jpg"
+                                                    src="https://armodels.ru/images/placeholder-partners.png"
+                                                    alt="rastem vmeste" />
+                                                                                    </a>
+                                                                    </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                                                                        <img class="border-radius-5px lazyload"
+                                                data-src="/storage/images/partners/01J1AP887WBKH5GZDK5W346WP8.jpg"
+                                                src="https://armodels.ru/images/placeholder-partners.png"
+                                                alt="lutaya" />
+                                                                                                            </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                            <a href="https://vk.com/lp_gallery24" target="_blank" rel="noopener noreferrer">
+                                                                                            <img class="border-radius-5px lazyload"
+                                                    data-src="/storage/images/partners/01J1AP7QFQA61KBW7GVNA83KSH.jpg"
+                                                    src="https://armodels.ru/images/placeholder-partners.png"
+                                                    alt="lpgl" />
+                                                                                    </a>
+                                                                    </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                                                                        <img class="border-radius-5px lazyload"
+                                                data-src="/storage/images/partners/01J1AP76MZAE847Q213M75H2A2.jpg"
+                                                src="https://armodels.ru/images/placeholder-partners.png"
+                                                alt="comfort" />
+                                                                                                            </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                                                                        <img class="border-radius-5px lazyload"
+                                                data-src="/storage/images/partners/01J1AP6NNNFFJ2E8H8MHFS6P7N.jpg"
+                                                src="https://armodels.ru/images/placeholder-partners.png"
+                                                alt="butterfly" />
+                                                                                                            </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                                                                        <img class="border-radius-5px lazyload"
+                                                data-src="/storage/images/partners/01J1AP153ZNFZBK8X8YZ8HBZC4.jpg"
+                                                src="https://armodels.ru/images/placeholder-partners.png"
+                                                alt="arty jewelry" />
+                                                                                                            </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                                                                        <img class="border-radius-5px lazyload"
+                                                data-src="/storage/images/partners/01J19HX2THZ22GJ4VTC06ST3C6.jpg"
+                                                src="https://armodels.ru/images/placeholder-partners.png"
+                                                alt="anextour" />
+                                                                                                            </div>
+                                                            <div class="swiper-slide border-radius-5px box-shadow-10-2 wow animate__fadeIn">
+                                                                            <a href="https://t.me/beauty_contests" target="_blank" rel="noopener noreferrer">
+                                                                                            <img class="border-radius-5px lazyload"
+                                                    data-src="/storage/images/partners/01J17NAG69SREKYXP9J8WFEVNT.jpg"
+                                                    src="https://armodels.ru/images/placeholder-partners.png"
+                                                    alt="Академия международных конкурсов красоты" />
+                                                                                    </a>
+                                                                    </div>
+                                                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end partners section -->
+    <!-- start Anastasiya section -->
+    <section class="cover-background pb-0 pt-lg-0" style="background-image: url('images/home/background-stars.jpg')">
+        <div id="stars"></div>
+        <div id="stars2"></div>
+        <div id="stars3"></div>
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 col-xl-5 col-lg-5 col-md-6 order-md-2 order-lg-2 text-start text-lg-start">
+                    <i
+                        class="fas fa-quote-left text-golden icon-medium margin-30px-bottom margin-30px-tb wow animate__fadeInRight"></i>
+                    <h5
+                        class="alt-font font-weight-500 text-white letter-spacing-minus-1px w-85 md-w-100 wow animate__fadeInRight">
+                        Анастасия Рыбакова</h5>
+                    <blockquote
+                        class="border-width-4px border-color-tussock text-white-90 font-weight-400 text-large line-height-32px padding-25px-left margin-40px-top margin-40px-bottom w-100 md-w-100 sm-w-100 wow animate__fadeInRight">
+                        Модельный бизнес — это сложный, но очень интересный мир. Чтобы добиться успеха, нужно обладать не
+                        только внешними данными, но и талантом, трудолюбием и упорством. Если вы готовы работать и
+                        развиваться, то у вас обязательно всё получится!
+                    </blockquote>
+                    <p class="font-weight-400 text-medium text-white-70 w-95 sm-w-100 wow animate__fadeInRight">
+                        Руководитель модельной школы и основатель глянцевого журнала «ARMODELS»</p>
+                    <img data-src="images/home/signature.png"
+                        class="align-self-start mt-0 sm-no-margin-top margin-40px-bottom sm-margin-5px-bottom md-w-20 lazyload wow animate__fadeInRight"
+                        alt="" />
+                </div>
+                <div class="col-10 col-lg-7 col-md-6 text-right order-md-1 order-lg-1">
+                    <div class="position-relative">
+                        <img data-src="images/home/ar.png"
+                            class="margin-30px-top bottom-0 vw-100 lazyload wow animate__fadeIn" alt="" />
+                        <div class="team-tulip-bubble bg-tussock text-left w-55 md-w-85 xs-w-70 wow animate__fadeInUp"
+                            data-wow-delay="0.4s">
+                            <span
+                                class="alt-font text-white text-extra-large letter-spacing-minus-1-half d-block line-height-32px">Не
+                                бойтесь мечтать и идти к своей цели!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- end section -->
+
+    <footer class="footer-dark bg-slate-blue">
+    <div class="footer-bottom padding-35px-tb">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-md-3 text-center text-md-start sm-margin-20px-bottom">
+                    <a href="https://armodels.ru" class="footer-logo">
+                        <img src="/storage/images/logotypes/01JKTY17QDQ1D72AZQRSQ1GGHS.png"
+                            data-at2x="/storage/images/logotypes/01JKTY17QDQ1D72AZQRSQ1GGHS.png" alt="" />
+                    </a>
+                </div>
+                <div class="col-12 col-md-6 text-center sm-margin-20px-bottom">
+                    <span class="font-weight-400 d-inline-block align-middle margin-5px-right">Made with &nbsp;<i
+                            class="fas fa-heart text-radical-red"></i>&nbsp; by</span>
+                    <a href="mailto:mogumbala@gmail.com"
+                        class="alt-font font-weight-500 text-small d-inline-block text-white text-decoration-line-bottom-gradient">Mog
+                        Umbala<span class="bg-white"></span></a>
+                    <span
+                        class="alt-font font-weight-400 d-inline-block align-middle margin-5px-right">&nbsp;|&nbsp;&copy;
+                        2023</span>
+                </div>
+                <div class="col-12 col-md-3 text-center text-md-end">
+                    <div class="social-icon-style-12">
+                        <ul class="extra-small-icon light">
+                            <li>
+                                <a class="vk" href="https://vk.com/armodels" target="_blank"><i
+                                        class="fab fa-vk text-large"></i></a>
+                            </li>
+                            <li>
+                                <a class="telegram" href="https://t.me/armodels24" target="_blank"><i
+                                        class="fab fa-telegram-plane text-large"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+    <div id="cookieConsentPopup" class="bg-slate-blue text-center text-slate-blue-light padding-2-rem-tb">
+    <div class="container">
+        <p>
+            Нажимая на кнопку «Принять все файлы cookie», вы выражаете своё согласие на хранение файлов cookie на вашем устройстве. Это помогает нам улучшить работу сайта, обеспечивает удобство навигации, позволяет анализировать взаимодействие с сайтом и поддерживает наши маркетинговые
+            инициативы.
+        </p>
+        <a id="acceptCookies" class="btn btn-p btn-medium btn-transparent-tussock btn-round-edge-small">Принять все файлы cookie</a>
+    </div>
+</div>
+
+    <!-- start scroll to top -->
+    <a class="scroll-top-arrow" href="javascript:void(0);"><i class="feather icon-feather-arrow-up"></i></a>
+    <!-- end scroll to top -->
+
+    <!-- javascript -->
+
+    <script type="text/javascript" src="https://armodels.ru/js/theme-vendors.min.js"></script>
+    <script type="text/javascript" src="https://armodels.ru/js/main.js"></script>
+    <script type="text/javascript" src="https://armodels.ru/js/lazysizes.min.js" async=""></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const link = document.getElementById('casting-link');
+            const text = link.textContent;
+            link.innerHTML = '';
+
+            for (let i = 0; i < text.length; i++) {
+                const span = document.createElement('span');
+                span.textContent = text[i];
+                span.style.animationDelay = `${i * 0.1}s`; // Задержка анимации для каждой буквы
+                link.appendChild(span);
+            }
+        });
+    </script>
+    <script>
+        fetch('/track-visitor', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        });
+    </script>
+</body>
+
+</html>

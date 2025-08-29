@@ -1,0 +1,72 @@
+Found 9 magazines
+
+Magazine 1:
+  Issue: Выпуск #9
+  Date: январе 2025
+  Cover: https://armodels.ru/storage/images/magazines/01JKR21W92F9Y8JG310CHN6QN4.jpg
+  PDF: https://armodels.ru/storage/files/magazines/ARMODELS-v9.pdf
+  Title: Журнал Выпуск #9
+
+Formatted message:
+📖 <b>Выпуск #9</b>
+
+📅 <b>Дата выхода:</b> в январе 2025
+
+
+--------------------------------------------------
+Magazine 2:
+  Issue: Выпуск #8
+  Date: июне 2024
+  Cover: https://armodels.ru/storage/images/magazines/01J1AN93NEX1X2ZQA5XPJYJCWD.jpg
+  PDF: https://armodels.ru/storage/files/magazines/ARMODELS-v8.pdf
+  Title: Журнал Выпуск #8
+
+Formatted message:
+📖 <b>Выпуск #8</b>
+
+📅 <b>Дата выхода:</b> в июне 2024
+
+
+--------------------------------------------------
+Magazine 3:
+  Issue: Выпуск #7
+  Date: марте 2024
+  Cover: https://armodels.ru/storage/images/magazines/01J1AN7R4SSCTTN0B2ZQ37JTFK.jpg
+  PDF: https://armodels.ru/storage/files/magazines/ARMODELS-v7.pdf
+  Title: Журнал Выпуск #7
+
+Formatted message:
+📖 <b>Выпуск #7</b>
+
+📅 <b>Дата выхода:</b> в марте 2024
+
+
+--------------------------------------------------
+Magazine 4:
+  Issue: Выпуск #6
+  Date: декабре 2023
+  Cover: https://armodels.ru/storage/images/magazines/01J1AN5N2YWZG13KT020WMT6NM.jpg
+  PDF: https://armodels.ru/storage/files/magazines/ARMODELS-v6.pdf
+  Title: Журнал Выпуск #6
+
+Formatted message:
+📖 <b>Выпуск #6</b>
+
+📅 <b>Дата выхода:</b> в декабре 2023
+
+
+--------------------------------------------------
+Magazine 5:
+  Issue: Выпуск #5
+  Date: августе 2023
+  Cover: https://armodels.ru/storage/images/magazines/01J1AN3V2KG8AA8DRJ7JCQKA8J.jpg
+  PDF: https://armodels.ru/storage/files/magazines/ARMODELS-v5.pdf
+  Title: Журнал Выпуск #5
+
+Formatted message:
+📖 <b>Выпуск #5</b>
+
+📅 <b>Дата выхода:</b> в августе 2023
+
+
+--------------------------------------------------
