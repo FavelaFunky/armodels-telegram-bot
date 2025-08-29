@@ -552,7 +552,7 @@ class ModelsTelegramBot:
             if hobbies_text:
                 message_text += f"\n{hobbies_text}\n"
 
-        message_text += f'<a href="{model_info["url"]}">Ссылка на портфолио</a>'
+        message_text += f'\n<a href="{model_info["url"]}">Ссылка на портфолио</a>'
         return message_text
 
     def run(self):
