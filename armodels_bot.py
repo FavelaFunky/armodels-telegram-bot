@@ -34,6 +34,7 @@ class ModelsTelegramBot:
         self.application.add_handler(CallbackQueryHandler(self.model_detail, pattern='^model_'))
         self.application.add_handler(CallbackQueryHandler(self.photo_navigation, pattern='^photo_(prev|next)_'))
         self.application.add_handler(CallbackQueryHandler(self.back_to_models, pattern='^back_to_models$'))
+        self.application.add_handler(CallbackQueryHandler(self.back_to_main, pattern='^back_to_main$'))
         self.application.add_handler(CallbackQueryHandler(self.handle_pagination, pattern='^page_'))
         self.application.add_handler(CallbackQueryHandler(self.handle_filter, pattern='^filter_'))
 
@@ -42,20 +43,15 @@ class ModelsTelegramBot:
         welcome_text = (
             "Добро пожаловать в бот модельного агентства ARModels!\n\n"
             "📋 <b>Доступные команды:</b>\n"
-            "• /models - Список всех моделей\n"
-            "• /teachers - Список учителей\n"
-            "• /partners - Список партнеров\n\n"
+            "• /models — Список всех моделей\n"
+            "• /teachers — Список учителей\n"
+            "• /partners — Список партнеров\n\n"
             "Выберите нужный раздел для просмотра информации."
         )
-        await update.message.reply_text(welcome_text)
+        await update.message.reply_text(welcome_text, parse_mode='HTML')
 
-        # Очищаем предыдущие данные и устанавливаем значения по умолчанию
+        # Очищаем предыдущие данные
         context.user_data.clear()
-        context.user_data['current_page'] = 0
-        context.user_data['current_filter'] = 'all'
-
-        # Автоматически показываем список моделей
-        await self.list_models(update, context, page=0, filter_type="all")
 
     async def models_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /models"""
@@ -68,20 +64,28 @@ class ModelsTelegramBot:
 
     async def teachers_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /teachers"""
+        keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
         await update.message.reply_text(
             "👨‍🏫 <b>Раздел учителей</b>\n\n"
             "Функционал находится в разработке.\n"
             "Скоро здесь будет список всех учителей агентства!",
-            parse_mode='HTML'
+            parse_mode='HTML',
+            reply_markup=reply_markup
         )
 
     async def partners_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /partners"""
+        keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
         await update.message.reply_text(
             "🤝 <b>Раздел партнеров</b>\n\n"
             "Функционал находится в разработке.\n"
             "Скоро здесь будет список всех партнеров агентства!",
-            parse_mode='HTML'
+            parse_mode='HTML',
+            reply_markup=reply_markup
         )
 
     async def list_models(self, update: Update, context: ContextTypes.DEFAULT_TYPE, page: int = 0, filter_type: str = "all"):
@@ -142,6 +146,9 @@ class ModelsTelegramBot:
 
             if nav_row:
                 keyboard.append(nav_row)
+
+            # Добавляем кнопку "Вернуться в главное меню"
+            keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
 
             # Добавляем кнопки фильтров
             filter_row = []
@@ -338,6 +345,28 @@ class ModelsTelegramBot:
 
         # Показываем список моделей с сохраненными параметрами
         await self.list_models(update, context, page=current_page, filter_type=current_filter)
+
+    async def back_to_main(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает возврат в главное меню"""
+        query = update.callback_query
+        await query.answer()
+
+        # Удаляем текущее сообщение
+        await query.delete_message()
+
+        # Очищаем все данные пользователя
+        context.user_data.clear()
+
+        # Показываем главное меню
+        welcome_text = (
+            "Добро пожаловать в бот модельного агентства ARModels!\n\n"
+            "📋 <b>Доступные команды:</b>\n"
+            "• /models — Список всех моделей\n"
+            "• /teachers — Список учителей\n"
+            "• /partners — Список партнеров\n\n"
+            "Выберите нужный раздел для просмотра информации."
+        )
+        await query.message.reply_text(welcome_text, parse_mode='HTML')
 
     async def handle_pagination(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает пагинацию списка моделей"""
