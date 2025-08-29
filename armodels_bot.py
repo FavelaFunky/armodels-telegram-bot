@@ -28,7 +28,7 @@ class ModelsTelegramBot:
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /start"""
         welcome_text = (
-            "Добро пожаловать в бот модельного агентства ARModels! \n\n"
+            "Добро пожаловать в бот модельного агентства ARModels!\n\n"
             "Используйте команду /models, чтобы увидеть список всех моделей."
         )
         await update.message.reply_text(welcome_text)
