@@ -109,7 +109,10 @@ class ArmModelsParser:
             # Курс обучения
             course_tag = soup.find('span', class_=lambda x: x and 'text-extra-medium' in x and 'text-uppercase' in x, string=lambda s: s and ('курс' in s.lower()))
             if course_tag:
-                params['Курс'] = course_tag.get_text(strip=True)
+                course_text = course_tag.get_text(strip=True)
+                # Убираем слово "курс" из текста
+                course_text = course_text.replace(' курс', '').replace('Курс', '').replace('курс', '').strip()
+                params['Курс'] = course_text
 
             # Возраст
             age_container = soup.find('span', class_=lambda x: x and 'font-weight-500' in x and 'text-extra-dark-gray' in x, string=lambda s: s and any(char.isdigit() for char in s))
