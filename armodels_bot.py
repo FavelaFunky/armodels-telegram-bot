@@ -102,9 +102,6 @@ class ArmModelsParser:
             name_tag = soup.find('h1', class_=lambda x: x and 'title-extra-large-light' in x)
             name = name_tag.get_text(strip=True) if name_tag else 'Не указано'
 
-            # Извлечение описания
-            description_tag = soup.find('p', class_=lambda x: x and 'text-large' in x and 'text-white' in x)
-            description = description_tag.get_text(strip=True) if description_tag else ''
 
             # Извлечение параметров модели
             params = {}
@@ -167,7 +164,6 @@ class ArmModelsParser:
                 'name': name,
                 'parameters': params,
                 'photos': photos,
-                'description': description,
                 'url': url
             }
         except Exception as e:
@@ -527,8 +523,6 @@ class ModelsTelegramBot:
         """Форматирует текст информации о модели"""
         message_text = f"*{model_info['name']}*\n\n"
 
-        if model_info['description']:
-            message_text += f"{model_info['description']}\n\n"
 
         if model_info['parameters']:
             message_text += "*Параметры:*\n"
