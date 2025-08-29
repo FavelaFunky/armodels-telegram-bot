@@ -1,8 +1,7 @@
 import logging
-import requests
-from bs4 import BeautifulSoup
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
+from parsers.models_parser import ModelsParser
 
 # Настройка логирования
 logging.basicConfig(
@@ -11,188 +10,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-class ArmModelsParser:
-    BASE_URL = 'https://armodels.ru'
-
-    def __init__(self):
-        self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        })
-
-    def get_all_models(self):
-        """Парсит список всех моделей с основной страницы"""
-        try:
-            url = f'{self.BASE_URL}/public/models'
-            response = self.session.get(url, timeout=10)
-            soup = BeautifulSoup(response.text, 'html.parser')
-
-            models = []
-            # Ищем все элементы с моделями
-            model_items = soup.find_all('li', class_='grid-item')
-
-            for item in model_items:
-                # Ищем ссылку на портфолио
-                portfolio_link = item.find('a', href=True, string='Портфолио')
-                if not portfolio_link:
-                    continue
-
-                # Ищем имя модели (в span с определенными классами)
-                name_span = item.find('span', class_=lambda x: x and 'text-white' in x and 'text-large' in x)
-                if not name_span:
-                    continue
-
-                name = name_span.get_text(strip=True)
-                profile_url = portfolio_link.get('href')
-
-                # Извлекаем курс
-                course_span = item.find('span', class_=lambda x: x and 'text-white' in x and 'text-medium' in x)
-                course = course_span.get_text(strip=True) if course_span else 'Не указан'
-
-                # Извлекаем пол из классов
-                classes = item.get('class', [])
-                gender = 'Не указан'
-                if 'male' in classes:
-                    gender = 'male'
-                elif 'female' in classes:
-                    gender = 'female'
-
-                # Определяем курс по классам
-                course_type = 'Не указан'
-                if 'first_course' in classes:
-                    course_type = 'first_course'
-                elif 'second_course' in classes:
-                    course_type = 'second_course'
-                elif 'third_course' in classes:
-                    course_type = 'third_course'
-                elif 'fourth_course' in classes:
-                    course_type = 'fourth_course'
-
-                if profile_url and name:
-                    if not profile_url.startswith('http'):
-                        if profile_url.startswith('/public'):
-                            # Убираем /public из ссылки для более короткого URL
-                            profile_url = profile_url.replace('/public', '', 1)
-                            profile_url = self.BASE_URL + profile_url
-                        elif profile_url.startswith('/'):
-                            profile_url = self.BASE_URL + profile_url
-                        else:
-                            profile_url = self.BASE_URL + '/' + profile_url
-
-                    models.append({
-                        'name': name,
-                        'url': profile_url,
-                        'course': course,
-                        'gender': gender,
-                        'course_type': course_type
-                    })
-
-            return models
-        except Exception as e:
-            logger.error(f"Ошибка при получении списка моделей: {e}")
-            return []
-
-    def get_model_details(self, url):
-        """Парсит детальную информацию о конкретной модели"""
-        try:
-            response = self.session.get(url, timeout=10)
-            soup = BeautifulSoup(response.text, 'html.parser')
-
-            # Извлечение имени модели
-            name_tag = soup.find('h1', class_=lambda x: x and 'title-extra-large-light' in x)
-            name = name_tag.get_text(strip=True) if name_tag else 'Не указано'
-
-
-            # Извлечение параметров модели
-            params = {}
-
-            # Курс обучения
-            course_tag = soup.find('span', class_=lambda x: x and 'text-extra-medium' in x and 'text-uppercase' in x, string=lambda s: s and ('курс' in s.lower()))
-            if course_tag:
-                course_text = course_tag.get_text(strip=True)
-                # Убираем слово "курс" из текста
-                course_text = course_text.replace(' курс', '').replace('Курс', '').replace('курс', '').strip()
-                params['Курс'] = course_text
-
-            # Возраст
-            age_container = soup.find('span', class_=lambda x: x and 'font-weight-500' in x and 'text-extra-dark-gray' in x, string=lambda s: s and any(char.isdigit() for char in s))
-            if age_container:
-                age_text = age_container.get_text(strip=True)
-                if 'лет' in age_text.lower() or any(char.isdigit() for char in age_text):
-                    params['Возраст'] = age_text
-
-            # Город
-            city_tag = soup.find('span', class_=lambda x: x and 'text-extra-medium' in x and 'text-uppercase' in x, string=lambda s: s and len(s.strip()) > 0)
-            if city_tag and city_tag.get_text(strip=True) not in ['Первый курс', 'Второй курс', 'Третий курс', 'Четвертый курс']:
-                params['Город'] = city_tag.get_text(strip=True)
-
-            # Параметры (рост, цвет волос, цвет глаз, размер обуви)
-            param_labels = ['Рост:', 'Цвет волос:', 'Цвет глаз:', 'Размер обуви:']
-            for label in param_labels:
-                label_tag = soup.find('span', class_=lambda x: x and 'font-weight-500' in x, string=label)
-                if label_tag:
-                    # Находим родительский контейнер d-flex
-                    parent = label_tag.find_parent('div', class_=lambda x: x and 'd-flex' in x)
-                    if parent:
-                        # Ищем следующий div с классом text-end, который содержит значение
-                        value_container = parent.find('div', class_=lambda x: x and 'text-end' in x)
-                        if value_container:
-                            value_tag = value_container.find('span', class_='text-uppercase')
-                            if value_tag:
-                                params[label.rstrip(':')] = value_tag.get_text(strip=True)
-
-            # Параметры тела (ищем в увлечениях)
-            hobbies_tag = soup.find('p', class_=lambda x: x and 'text-extra-medium-gray' in x)
-            if hobbies_tag:
-                hobbies_text = hobbies_tag.get_text(strip=True)
-
-                # Ищем параметры тела в формате "Параметры: 78/75/86"
-                import re
-                params_match = re.search(r'Параметры:\s*([\d/]+)', hobbies_text)
-                if params_match:
-                    params['Параметры'] = params_match.group(1)
-                    # Убираем параметры из текста увлечений
-                    hobbies_text = re.sub(r'Параметры:\s*[\d/]+\.?\s*', '', hobbies_text).strip()
-
-                # Оставляем только увлечения и хобби
-                if hobbies_text and len(hobbies_text) > 10 and 'не указаны' not in hobbies_text.lower():
-                    # Форматируем как expandable blockquote без заголовка
-                    formatted_hobbies = f"<blockquote expandable>" + '\n'.join(f"{line}" for line in hobbies_text.split('\n') if line.strip()) + "</blockquote>"
-                    params['Увлечения и хобби'] = formatted_hobbies
-
-            # Фотографии - берем только из основного слайдера, исключая миниатюры
-            photos = []
-            # Ищем основной контейнер слайдера
-            main_slider = soup.find('div', class_=lambda x: x and 'product-image-slider' in x)
-            if main_slider:
-                # Берем только изображения из основного слайдера
-                img_tags = main_slider.find_all('img', {'data-src': True})
-                for img in img_tags:
-                    src = img.get('data-src')
-                    if src and ('models' in src or 'slides' in src):
-                        if not src.startswith('http'):
-                            if src.startswith('/storage'):
-                                src = self.BASE_URL + src
-                            elif src.startswith('/'):
-                                src = self.BASE_URL + src
-                            else:
-                                src = self.BASE_URL + '/' + src
-                        photos.append(src)
-
-            return {
-                'name': name,
-                'parameters': params,
-                'photos': photos,
-                'url': url
-            }
-        except Exception as e:
-            logger.error(f"Ошибка при получении деталей модели: {e}")
-            return None
-
 class ModelsTelegramBot:
     def __init__(self, token):
         self.application = Application.builder().token(token).build()
-        self.parser = ArmModelsParser()
+        self.parser = ModelsParser()
         self.models_cache = []
 
         # Регистрация обработчиков команд
@@ -238,7 +59,7 @@ class ModelsTelegramBot:
 
             # Загружаем модели, если они еще не загружены
             if not hasattr(self, 'models_cache') or not self.models_cache:
-                models = self.parser.get_all_models()
+                models = self.parser.parse_list()
                 self.models_cache = models
             else:
                 models = self.models_cache
@@ -365,7 +186,7 @@ class ModelsTelegramBot:
         model_url = self.models_cache[model_idx]['url']
 
         try:
-            model_info = self.parser.get_model_details(model_url)
+            model_info = self.parser.parse_detail(model_url)
 
             if not model_info:
                 await query.edit_message_text(text='Не удалось загрузить информацию о модели.')
