@@ -530,8 +530,8 @@ class ModelsTelegramBot:
             message_text += "*Параметры:*\n"
             for key, value in model_info['parameters'].items():
                 if key == 'Увлечения и хобби':
-                    # Увлечения и хобби уже отформатированы как blockquote
-                    message_text += f"{value}\n\n"
+                    # Увлечения и хобби уже содержат заголовок и blockquote форматирование
+                    message_text += f"\n{value}\n"
                 else:
                     message_text += f"• {key}: {value}\n"
             message_text += "\n"
