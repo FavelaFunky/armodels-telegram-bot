@@ -143,8 +143,8 @@ class ArmModelsParser:
             if hobbies_tag:
                 hobbies_text = hobbies_tag.get_text(strip=True)
                 if hobbies_text and len(hobbies_text) > 10:  # Проверяем, что текст не пустой и достаточно длинный
-                    # Форматируем как blockquote для лучшего отображения
-                    formatted_hobbies = '\n'.join(f'> {line}' for line in hobbies_text.split('\n') if line.strip())
+                    # Форматируем как expandable blockquote
+                    formatted_hobbies = f"> **Увлечения и хобби:**\n" + '\n'.join(f'> {line}' for line in hobbies_text.split('\n') if line.strip())
                     params['Увлечения и хобби'] = formatted_hobbies
 
             # Фотографии
@@ -529,7 +529,11 @@ class ModelsTelegramBot:
         if model_info['parameters']:
             message_text += "*Параметры:*\n"
             for key, value in model_info['parameters'].items():
-                message_text += f"• {key}: {value}\n"
+                if key == 'Увлечения и хобби':
+                    # Увлечения и хобби уже отформатированы как blockquote
+                    message_text += f"{value}\n\n"
+                else:
+                    message_text += f"• {key}: {value}\n"
             message_text += "\n"
 
         message_text += f"[Ссылка на портфолио]({model_info['url']})"
