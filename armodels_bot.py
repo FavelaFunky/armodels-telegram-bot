@@ -40,6 +40,9 @@ class ModelsTelegramBot:
 
     async def start(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /start"""
+        # Удаляем предыдущее сообщение, если оно есть
+        await self.delete_previous_message(context)
+
         welcome_text = (
             "Добро пожаловать в бот модельного агентства ARModels!\n\n"
             "📋 <b>Доступные команды:</b>\n"
@@ -48,10 +51,16 @@ class ModelsTelegramBot:
             "• /partners — Список партнеров\n\n"
             "Выберите нужный раздел для просмотра информации."
         )
-        await update.message.reply_text(welcome_text, parse_mode='HTML')
+        message = await update.message.reply_text(welcome_text, parse_mode='HTML')
 
-        # Очищаем предыдущие данные
-        context.user_data.clear()
+        # Сохраняем ID сообщения и chat_id для последующего управления
+        context.user_data['last_message_id'] = message.message_id
+        context.user_data['chat_id'] = update.message.chat_id
+
+        # Очищаем остальные данные
+        context.user_data.pop('current_page', None)
+        context.user_data.pop('current_filter', None)
+        context.user_data.pop('current_model', None)
 
     async def models_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /models"""
@@ -402,13 +411,17 @@ class ModelsTelegramBot:
         query = update.callback_query
         await query.answer()
 
-        # Удаляем текущее сообщение
-        await query.delete_message()
+        # Очищаем данные о текущей модели и пагинации, но сохраняем главное сообщение
+        context.user_data.pop('current_model', None)
+        context.user_data.pop('current_photo_idx', None)
+        context.user_data.pop('message_id', None)
+        context.user_data.pop('current_page', None)
+        context.user_data.pop('current_filter', None)
 
-        # Очищаем все данные пользователя
-        context.user_data.clear()
+        # Проверяем, есть ли уже главное сообщение для редактирования
+        last_message_id = context.user_data.get('last_message_id')
+        chat_id = context.user_data.get('chat_id')
 
-        # Показываем главное меню
         welcome_text = (
             "Добро пожаловать в бот модельного агентства ARModels!\n\n"
             "📋 <b>Доступные команды:</b>\n"
@@ -417,11 +430,31 @@ class ModelsTelegramBot:
             "• /partners — Список партнеров\n\n"
             "Выберите нужный раздел для просмотра информации."
         )
-        message = await query.message.reply_text(welcome_text, parse_mode='HTML')
 
-        # Сохраняем ID сообщения для последующего удаления
-        context.user_data['last_message_id'] = message.message_id
-        context.user_data['chat_id'] = query.message.chat_id
+        if last_message_id and chat_id:
+            try:
+                # Пытаемся отредактировать существующее сообщение
+                await context.bot.edit_message_text(
+                    chat_id=chat_id,
+                    message_id=last_message_id,
+                    text=welcome_text,
+                    parse_mode='HTML'
+                )
+                # Удаляем текущее сообщение (то, из которого была нажата кнопка)
+                await query.delete_message()
+            except Exception as e:
+                # Если редактирование не удалось, создаем новое сообщение
+                logger.debug(f"Не удалось отредактировать сообщение: {e}")
+                await query.delete_message()
+                message = await query.message.reply_text(welcome_text, parse_mode='HTML')
+                context.user_data['last_message_id'] = message.message_id
+                context.user_data['chat_id'] = query.message.chat_id
+        else:
+            # Если нет сохраненного сообщения, создаем новое
+            await query.delete_message()
+            message = await query.message.reply_text(welcome_text, parse_mode='HTML')
+            context.user_data['last_message_id'] = message.message_id
+            context.user_data['chat_id'] = query.message.chat_id
 
     async def handle_pagination(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает пагинацию списка моделей"""
