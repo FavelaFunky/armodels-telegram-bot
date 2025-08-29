@@ -138,13 +138,23 @@ class ArmModelsParser:
                             if value_tag:
                                 params[label.rstrip(':')] = value_tag.get_text(strip=True)
 
-            # Увлечения и хобби
+            # Параметры тела (ищем в увлечениях)
             hobbies_tag = soup.find('p', class_=lambda x: x and 'text-extra-medium-gray' in x)
             if hobbies_tag:
                 hobbies_text = hobbies_tag.get_text(strip=True)
-                if hobbies_text and len(hobbies_text) > 10:  # Проверяем, что текст не пустой и достаточно длинный
-                    # Форматируем как expandable blockquote с HTML тегами
-                    formatted_hobbies = f"<blockquote expandable><b>Увлечения и хобби:</b>\n" + '\n'.join(f"{line}" for line in hobbies_text.split('\n') if line.strip()) + "</blockquote>"
+
+                # Ищем параметры тела в формате "Параметры: 78/75/86"
+                import re
+                params_match = re.search(r'Параметры:\s*([\d/]+)', hobbies_text)
+                if params_match:
+                    params['Параметры'] = params_match.group(1)
+                    # Убираем параметры из текста увлечений
+                    hobbies_text = re.sub(r'Параметры:\s*[\d/]+\.?\s*', '', hobbies_text).strip()
+
+                # Оставляем только увлечения и хобби
+                if hobbies_text and len(hobbies_text) > 10 and 'не указаны' not in hobbies_text.lower():
+                    # Форматируем как blockquote с HTML тегами
+                    formatted_hobbies = f"<blockquote><b>Увлечения и хобби:</b>\n" + '\n'.join(f"{line}" for line in hobbies_text.split('\n') if line.strip()) + "</blockquote>"
                     params['Увлечения и хобби'] = formatted_hobbies
 
             # Фотографии
@@ -525,16 +535,18 @@ class ModelsTelegramBot:
         """Форматирует текст информации о модели"""
         message_text = f"<b>{model_info['name']}</b>\n\n"
 
-
         if model_info['parameters']:
-            message_text += "<b>Параметры:</b>\n"
+            hobbies_text = None
             for key, value in model_info['parameters'].items():
                 if key == 'Увлечения и хобби':
-                    # Увлечения и хобби уже содержат заголовок и blockquote форматирование
-                    message_text += f"\n{value}\n"
+                    # Сохраняем увлечения для отдельного вывода
+                    hobbies_text = value
                 else:
                     message_text += f"• {key}: {value}\n"
-            message_text += "\n"
+
+            # Добавляем увлечения и хобби в конце, если они есть
+            if hobbies_text:
+                message_text += f"\n{hobbies_text}\n"
 
         message_text += f'<a href="{model_info["url"]}">Ссылка на портфолио</a>'
         return message_text
