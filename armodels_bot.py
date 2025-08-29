@@ -2,6 +2,8 @@ import logging
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
 from parsers.models_parser import ModelsParser
+from parsers.teachers_parser import TeachersParser
+from parsers.partners_parser import PartnersParser
 
 # Настройка логирования
 logging.basicConfig(
@@ -13,12 +15,22 @@ logger = logging.getLogger(__name__)
 class ModelsTelegramBot:
     def __init__(self, token):
         self.application = Application.builder().token(token).build()
-        self.parser = ModelsParser()
+
+        # Инициализация парсеров
+        self.models_parser = ModelsParser()
+        self.teachers_parser = TeachersParser()
+        self.partners_parser = PartnersParser()
+
+        # Кэши для данных
         self.models_cache = []
+        self.teachers_cache = []
+        self.partners_cache = []
 
         # Регистрация обработчиков команд
         self.application.add_handler(CommandHandler("start", self.start))
         self.application.add_handler(CommandHandler("models", self.models_command))
+        self.application.add_handler(CommandHandler("teachers", self.teachers_command))
+        self.application.add_handler(CommandHandler("partners", self.partners_command))
         self.application.add_handler(CallbackQueryHandler(self.model_detail, pattern='^model_'))
         self.application.add_handler(CallbackQueryHandler(self.photo_navigation, pattern='^photo_(prev|next)_'))
         self.application.add_handler(CallbackQueryHandler(self.back_to_models, pattern='^back_to_models$'))
@@ -29,7 +41,11 @@ class ModelsTelegramBot:
         """Обрабатывает команду /start"""
         welcome_text = (
             "Добро пожаловать в бот модельного агентства ARModels!\n\n"
-            "Используйте команду /models, чтобы увидеть список всех моделей."
+            "📋 <b>Доступные команды:</b>\n"
+            "• /models - Список всех моделей\n"
+            "• /teachers - Список учителей\n"
+            "• /partners - Список партнеров\n\n"
+            "Выберите нужный раздел для просмотра информации."
         )
         await update.message.reply_text(welcome_text)
 
@@ -50,6 +66,24 @@ class ModelsTelegramBot:
         # Показываем список моделей
         await self.list_models(update, context, page=0, filter_type="all")
 
+    async def teachers_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает команду /teachers"""
+        await update.message.reply_text(
+            "👨‍🏫 <b>Раздел учителей</b>\n\n"
+            "Функционал находится в разработке.\n"
+            "Скоро здесь будет список всех учителей агентства!",
+            parse_mode='HTML'
+        )
+
+    async def partners_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает команду /partners"""
+        await update.message.reply_text(
+            "🤝 <b>Раздел партнеров</b>\n\n"
+            "Функционал находится в разработке.\n"
+            "Скоро здесь будет список всех партнеров агентства!",
+            parse_mode='HTML'
+        )
+
     async def list_models(self, update: Update, context: ContextTypes.DEFAULT_TYPE, page: int = 0, filter_type: str = "all"):
         """Обрабатывает команду /models, парсит список моделей и выводит его с пагинацией и фильтрами."""
         try:
@@ -58,8 +92,8 @@ class ModelsTelegramBot:
             context.user_data['current_filter'] = filter_type
 
             # Загружаем модели, если они еще не загружены
-            if not hasattr(self, 'models_cache') or not self.models_cache:
-                models = self.parser.parse_list()
+            if not self.models_cache:
+                models = self.models_parser.parse_list()
                 self.models_cache = models
             else:
                 models = self.models_cache
@@ -186,7 +220,7 @@ class ModelsTelegramBot:
         model_url = self.models_cache[model_idx]['url']
 
         try:
-            model_info = self.parser.parse_detail(model_url)
+            model_info = self.models_parser.parse_detail(model_url)
 
             if not model_info:
                 await query.edit_message_text(text='Не удалось загрузить информацию о модели.')
