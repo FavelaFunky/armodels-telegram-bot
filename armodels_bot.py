@@ -153,8 +153,8 @@ class ArmModelsParser:
 
                 # Оставляем только увлечения и хобби
                 if hobbies_text and len(hobbies_text) > 10 and 'не указаны' not in hobbies_text.lower():
-                    # Форматируем как blockquote с HTML тегами
-                    formatted_hobbies = f"<blockquote><b>Увлечения и хобби:</b>\n" + '\n'.join(f"{line}" for line in hobbies_text.split('\n') if line.strip()) + "</blockquote>"
+                    # Форматируем как expandable blockquote без заголовка
+                    formatted_hobbies = f"<blockquote expandable>" + '\n'.join(f"{line}" for line in hobbies_text.split('\n') if line.strip()) + "</blockquote>"
                     params['Увлечения и хобби'] = formatted_hobbies
 
             # Фотографии - берем только из основного слайдера, исключая миниатюры
