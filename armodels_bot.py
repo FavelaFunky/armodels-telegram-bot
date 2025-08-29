@@ -143,8 +143,8 @@ class ArmModelsParser:
             if hobbies_tag:
                 hobbies_text = hobbies_tag.get_text(strip=True)
                 if hobbies_text and len(hobbies_text) > 10:  # Проверяем, что текст не пустой и достаточно длинный
-                    # Форматируем как expandable blockquote
-                    formatted_hobbies = f"> **Увлечения и хобби:**\n" + '\n'.join(f'> {line}' for line in hobbies_text.split('\n') if line.strip())
+                    # Форматируем как blockquote с HTML тегами
+                    formatted_hobbies = f"<blockquote><b>Увлечения и хобби:</b>\n" + '\n'.join(f"{line}" for line in hobbies_text.split('\n') if line.strip()) + "</blockquote>"
                     params['Увлечения и хобби'] = formatted_hobbies
 
             # Фотографии
@@ -243,7 +243,7 @@ class ModelsTelegramBot:
 
             # Создаем сообщение
             filter_name = self.get_filter_name(filter_type)
-            message = f"📋 *Модели {filter_name}*\n\n"
+            message = f"📋 <b>Модели {filter_name}</b>\n\n"
             message += f"Показаны модели {start_idx + 1}-{end_idx} из {len(filtered_models)}\n\n"
 
             # Создаем клавиатуру
@@ -330,9 +330,9 @@ class ModelsTelegramBot:
     async def send_message(self, update, text, reply_markup=None):
         """Универсальный метод отправки сообщений"""
         if hasattr(update, 'message') and update.message:
-            await update.message.reply_text(text, reply_markup=reply_markup, parse_mode='Markdown')
+            await update.message.reply_text(text, reply_markup=reply_markup, parse_mode='HTML')
         elif hasattr(update, 'callback_query') and update.callback_query:
-            await update.callback_query.message.reply_text(text, reply_markup=reply_markup, parse_mode='Markdown')
+            await update.callback_query.message.reply_text(text, reply_markup=reply_markup, parse_mode='HTML')
 
     async def model_detail(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает нажатие на кнопку модели, парсит и показывает детали."""
@@ -379,7 +379,7 @@ class ModelsTelegramBot:
         if not photos:
             # Если нет фото, показываем только текст
             message_text = self.format_model_text(model_info)
-            await query.edit_message_text(text=message_text, parse_mode='Markdown')
+            await query.edit_message_text(text=message_text, parse_mode='HTML')
             return
 
         # Форматируем текст сообщения
@@ -408,13 +408,13 @@ class ModelsTelegramBot:
                 chat_id=query.message.chat_id,
                 photo=photos[photo_idx],
                 caption=message_text,
-                parse_mode='Markdown',
+                parse_mode='HTML',
                 reply_markup=reply_markup
             )
             context.user_data['message_id'] = message.message_id
         else:
             # Для последующих - редактируем существующее фото
-            media = InputMediaPhoto(media=photos[photo_idx], caption=message_text, parse_mode='Markdown')
+            media = InputMediaPhoto(media=photos[photo_idx], caption=message_text, parse_mode='HTML')
             await context.bot.edit_message_media(
                 chat_id=query.message.chat_id,
                 message_id=context.user_data['message_id'],
@@ -523,11 +523,11 @@ class ModelsTelegramBot:
 
     def format_model_text(self, model_info):
         """Форматирует текст информации о модели"""
-        message_text = f"*{model_info['name']}*\n\n"
+        message_text = f"<b>{model_info['name']}</b>\n\n"
 
 
         if model_info['parameters']:
-            message_text += "*Параметры:*\n"
+            message_text += "<b>Параметры:</b>\n"
             for key, value in model_info['parameters'].items():
                 if key == 'Увлечения и хобби':
                     # Увлечения и хобби уже содержат заголовок и blockquote форматирование
@@ -536,7 +536,7 @@ class ModelsTelegramBot:
                     message_text += f"• {key}: {value}\n"
             message_text += "\n"
 
-        message_text += f"[Ссылка на портфолио]({model_info['url']})"
+        message_text += f'<a href="{model_info["url"]}">Ссылка на портфолио</a>'
         return message_text
 
     def run(self):
