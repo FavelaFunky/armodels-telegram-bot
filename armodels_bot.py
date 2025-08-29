@@ -143,7 +143,9 @@ class ArmModelsParser:
             if hobbies_tag:
                 hobbies_text = hobbies_tag.get_text(strip=True)
                 if hobbies_text and len(hobbies_text) > 10:  # Проверяем, что текст не пустой и достаточно длинный
-                    params['Увлечения и хобби'] = hobbies_text
+                    # Форматируем как blockquote для лучшего отображения
+                    formatted_hobbies = '\n'.join(f'> {line}' for line in hobbies_text.split('\n') if line.strip())
+                    params['Увлечения и хобби'] = formatted_hobbies
 
             # Фотографии
             photos = []
