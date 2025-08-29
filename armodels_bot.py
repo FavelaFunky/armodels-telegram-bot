@@ -55,6 +55,9 @@ class ModelsTelegramBot:
 
     async def models_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /models"""
+        # Удаляем предыдущее сообщение, если оно есть
+        await self.delete_previous_message(context)
+
         # Устанавливаем параметры по умолчанию
         context.user_data['current_page'] = 0
         context.user_data['current_filter'] = 'all'
@@ -64,10 +67,13 @@ class ModelsTelegramBot:
 
     async def teachers_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /teachers"""
+        # Удаляем предыдущее сообщение, если оно есть
+        await self.delete_previous_message(context)
+
         keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
-        await update.message.reply_text(
+        message = await update.message.reply_text(
             "👨‍🏫 <b>Раздел учителей</b>\n\n"
             "Функционал находится в разработке.\n"
             "Скоро здесь будет список всех учителей агентства!",
@@ -75,12 +81,18 @@ class ModelsTelegramBot:
             reply_markup=reply_markup
         )
 
+        # Сохраняем ID сообщения для последующего удаления
+        context.user_data['last_message_id'] = message.message_id
+
     async def partners_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /partners"""
+        # Удаляем предыдущее сообщение, если оно есть
+        await self.delete_previous_message(context)
+
         keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
         reply_markup = InlineKeyboardMarkup(keyboard)
 
-        await update.message.reply_text(
+        message = await update.message.reply_text(
             "🤝 <b>Раздел партнеров</b>\n\n"
             "Функционал находится в разработке.\n"
             "Скоро здесь будет список всех партнеров агентства!",
@@ -88,9 +100,18 @@ class ModelsTelegramBot:
             reply_markup=reply_markup
         )
 
+        # Сохраняем ID сообщения для последующего удаления
+        context.user_data['last_message_id'] = message.message_id
+
     async def list_models(self, update: Update, context: ContextTypes.DEFAULT_TYPE, page: int = 0, filter_type: str = "all"):
         """Обрабатывает команду /models, парсит список моделей и выводит его с пагинацией и фильтрами."""
         try:
+            # Сохраняем chat_id для удаления сообщений
+            if hasattr(update, 'message') and update.message:
+                context.user_data['chat_id'] = update.message.chat_id
+            elif hasattr(update, 'callback_query') and update.callback_query:
+                context.user_data['chat_id'] = update.callback_query.message.chat_id
+
             # Сохраняем текущую страницу и фильтр в контексте
             context.user_data['current_page'] = page
             context.user_data['current_filter'] = filter_type
@@ -104,7 +125,9 @@ class ModelsTelegramBot:
 
             if not models:
                 message = 'Не удалось загрузить список моделей. Попробуйте позже.'
-                await self.send_message(update, message)
+                sent_message = await self.send_message(update, message)
+                if sent_message:
+                    context.user_data['last_message_id'] = sent_message.message_id
                 return
 
             # Применяем фильтр
@@ -147,9 +170,6 @@ class ModelsTelegramBot:
             if nav_row:
                 keyboard.append(nav_row)
 
-            # Добавляем кнопку "Вернуться в главное меню"
-            keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
-
             # Добавляем кнопки фильтров
             filter_row = []
             filters = [
@@ -174,8 +194,13 @@ class ModelsTelegramBot:
                 for i in range(0, len(filter_row), 3):
                     keyboard.append(filter_row[i:i+3])
 
+            # Добавляем кнопку "Вернуться в главное меню" в конце
+            keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
             reply_markup = InlineKeyboardMarkup(keyboard)
-            await self.send_message(update, message, reply_markup)
+            sent_message = await self.send_message(update, message, reply_markup)
+            if sent_message:
+                context.user_data['last_message_id'] = sent_message.message_id
 
         except Exception as e:
             logger.error(f"Ошибка при получении списка моделей: {e}")
@@ -209,9 +234,35 @@ class ModelsTelegramBot:
     async def send_message(self, update, text, reply_markup=None):
         """Универсальный метод отправки сообщений"""
         if hasattr(update, 'message') and update.message:
-            await update.message.reply_text(text, reply_markup=reply_markup, parse_mode='HTML')
+            message = await update.message.reply_text(text, reply_markup=reply_markup, parse_mode='HTML')
+            # Сохраняем ID сообщения для последующего удаления
+            if hasattr(update, 'message') and hasattr(update.message, '_bot'):
+                # Получаем context из update
+                context = None
+                if hasattr(update, '_bot') and hasattr(update._bot, '_context'):
+                    context = update._bot._context
+                if context:
+                    context.user_data['last_message_id'] = message.message_id
+            return message
         elif hasattr(update, 'callback_query') and update.callback_query:
-            await update.callback_query.message.reply_text(text, reply_markup=reply_markup, parse_mode='HTML')
+            message = await update.callback_query.message.reply_text(text, reply_markup=reply_markup, parse_mode='HTML')
+            return message
+
+    async def delete_previous_message(self, context):
+        """Удаляет предыдущее сообщение, если оно есть"""
+        last_message_id = context.user_data.get('last_message_id')
+        if last_message_id:
+            try:
+                await context.bot.delete_message(
+                    chat_id=context.user_data.get('chat_id'),
+                    message_id=last_message_id
+                )
+            except Exception as e:
+                # Игнорируем ошибки удаления (сообщение могло быть уже удалено)
+                logger.debug(f"Не удалось удалить сообщение {last_message_id}: {e}")
+            finally:
+                # Очищаем ID в любом случае
+                context.user_data.pop('last_message_id', None)
 
     async def model_detail(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает нажатие на кнопку модели, парсит и показывает детали."""
@@ -366,7 +417,11 @@ class ModelsTelegramBot:
             "• /partners — Список партнеров\n\n"
             "Выберите нужный раздел для просмотра информации."
         )
-        await query.message.reply_text(welcome_text, parse_mode='HTML')
+        message = await query.message.reply_text(welcome_text, parse_mode='HTML')
+
+        # Сохраняем ID сообщения для последующего удаления
+        context.user_data['last_message_id'] = message.message_id
+        context.user_data['chat_id'] = query.message.chat_id
 
     async def handle_pagination(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает пагинацию списка моделей"""
