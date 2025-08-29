@@ -1,0 +1,32 @@
+name: Run Telegram Bot
+
+on:
+  workflow_dispatch: # Ручной запуск
+  schedule:
+    - cron: "0 */6 * * *" # Каждые 6 часов
+
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Create .env file
+        run: |
+          echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" > .env
+
+      - name: Run bot
+        run: |
+          timeout 3600 python run.py || true  # Запуск на 1 час
