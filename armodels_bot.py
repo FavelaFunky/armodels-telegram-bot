@@ -4,6 +4,7 @@ from telegram.ext import Application, CommandHandler, CallbackQueryHandler, Cont
 from parsers.models_parser import ModelsParser
 from parsers.teachers_parser import TeachersParser
 from parsers.partners_parser import PartnersParser
+from parsers.magazines_parser import MagazinesParser
 
 # Настройка логирования
 logging.basicConfig(
@@ -20,20 +21,29 @@ class ModelsTelegramBot:
         self.models_parser = ModelsParser()
         self.teachers_parser = TeachersParser()
         self.partners_parser = PartnersParser()
+        self.magazines_parser = MagazinesParser()
 
         # Кэши для данных
         self.models_cache = []
         self.teachers_cache = []
         self.partners_cache = []
+        self.magazines_cache = []
 
         # Регистрация обработчиков команд
         self.application.add_handler(CommandHandler("start", self.start))
         self.application.add_handler(CommandHandler("models", self.models_command))
         self.application.add_handler(CommandHandler("teachers", self.teachers_command))
         self.application.add_handler(CommandHandler("partners", self.partners_command))
+        self.application.add_handler(CommandHandler("magazines", self.magazines_command))
         self.application.add_handler(CallbackQueryHandler(self.model_detail, pattern='^model_'))
+        self.application.add_handler(CallbackQueryHandler(self.teacher_detail, pattern='^teacher_'))
+        self.application.add_handler(CallbackQueryHandler(self.partner_detail, pattern='^partner_'))
+        self.application.add_handler(CallbackQueryHandler(self.magazine_detail, pattern='^magazine_'))
         self.application.add_handler(CallbackQueryHandler(self.photo_navigation, pattern='^photo_(prev|next)_'))
         self.application.add_handler(CallbackQueryHandler(self.back_to_models, pattern='^back_to_models$'))
+        self.application.add_handler(CallbackQueryHandler(self.back_to_teachers, pattern='^back_to_teachers$'))
+        self.application.add_handler(CallbackQueryHandler(self.back_to_partners, pattern='^back_to_partners$'))
+        self.application.add_handler(CallbackQueryHandler(self.back_to_magazines, pattern='^back_to_magazines$'))
         self.application.add_handler(CallbackQueryHandler(self.back_to_main, pattern='^back_to_main$'))
         self.application.add_handler(CallbackQueryHandler(self.handle_pagination, pattern='^page_'))
         self.application.add_handler(CallbackQueryHandler(self.handle_filter, pattern='^filter_'))
@@ -43,10 +53,12 @@ class ModelsTelegramBot:
         welcome_text = (
             "Добро пожаловать в бот модельного агентства ARModels!\n\n"
             "📋 <b>Доступные команды:</b>\n"
-            "• /models — Список всех моделей\n"
-            "• /teachers — Список учителей\n"
-            "• /partners — Список партнеров\n\n"
-            "Выберите нужный раздел для просмотра информации."
+            "• /models — Список всех моделей с фильтрами\n"
+            "• /teachers — Список преподавателей\n"
+            "• /partners — Список партнеров агентства\n"
+            "• /magazines — Архив выпусков глянцевого журнала\n\n"
+            "Выберите нужный раздел для просмотра информации.\n"
+            "Все данные парсятся с официального сайта armodels.ru"
         )
         await update.message.reply_text(welcome_text, parse_mode='HTML')
 
@@ -69,32 +81,116 @@ class ModelsTelegramBot:
 
     async def teachers_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /teachers"""
-        # Сохраняем ID команды пользователя для последующего удаления
-        context.user_data['command_message_id'] = update.message.message_id
+        # Определяем chat_id в зависимости от типа update
+        if hasattr(update, 'message') and update.message:
+            chat_id = update.message.chat_id
+            context.user_data['command_message_id'] = update.message.message_id
+        elif hasattr(update, 'callback_query') and update.callback_query:
+            chat_id = update.callback_query.message.chat_id
+        else:
+            return
 
-        keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+        # Загружаем учителей, если они еще не загружены
+        if not self.teachers_cache:
+            teachers = self.teachers_parser.parse_list()
+            self.teachers_cache = teachers
+        else:
+            teachers = self.teachers_cache
+
+        if not teachers:
+            keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_message(
+                chat_id=chat_id,
+                text="👨‍🏫 <b>Раздел учителей</b>\n\nНе удалось загрузить список учителей. Попробуйте позже.",
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+            return
+
+        # Создаем сообщение со списком учителей
+        message = "👨‍🏫 <b>Наши преподаватели</b>\n\n"
+        message += f"Найдено {len(teachers)} преподавателей:\n\n"
+
+        # Создаем клавиатуру
+        keyboard = []
+
+        for idx, teacher in enumerate(teachers):
+            # Создаем кнопку с именем и специальностью
+            button_text = f"👨‍🏫 {teacher['name']}"
+            if teacher.get('specialty'):
+                button_text += f" ({teacher['specialty']})"
+
+            keyboard.append([InlineKeyboardButton(
+                button_text,
+                callback_data=f"teacher_{idx}"
+            )])
+
+        # Добавляем кнопку "Вернуться в главное меню" в конце
+        keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
         reply_markup = InlineKeyboardMarkup(keyboard)
-
-        await update.message.reply_text(
-            "👨‍🏫 <b>Раздел учителей</b>\n\n"
-            "Функционал находится в разработке.\n"
-            "Скоро здесь будет список всех учителей агентства!",
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text=message,
             parse_mode='HTML',
             reply_markup=reply_markup
         )
 
     async def partners_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает команду /partners"""
-        # Сохраняем ID команды пользователя для последующего удаления
-        context.user_data['command_message_id'] = update.message.message_id
+        # Определяем chat_id в зависимости от типа update
+        if hasattr(update, 'message') and update.message:
+            chat_id = update.message.chat_id
+            context.user_data['command_message_id'] = update.message.message_id
+        elif hasattr(update, 'callback_query') and update.callback_query:
+            chat_id = update.callback_query.message.chat_id
+        else:
+            return
 
-        keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+        # Загружаем партнеров, если они еще не загружены
+        if not self.partners_cache:
+            partners = self.partners_parser.parse_list()
+            self.partners_cache = partners
+        else:
+            partners = self.partners_cache
+
+        if not partners:
+            keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_message(
+                chat_id=chat_id,
+                text="🤝 <b>Раздел партнеров</b>\n\nНе удалось загрузить список партнеров. Попробуйте позже.",
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+            return
+
+        # Создаем сообщение со списком партнеров
+        message = "🤝 <b>Наши партнеры</b>\n\n"
+        message += f"Найдено {len(partners)} партнеров:\n\n"
+
+        # Создаем клавиатуру
+        keyboard = []
+
+        for idx, partner in enumerate(partners):
+            # Создаем кнопку с названием партнера
+            button_text = f"🤝 {partner['name']}"
+
+            keyboard.append([InlineKeyboardButton(
+                button_text,
+                callback_data=f"partner_{idx}"
+            )])
+
+        # Добавляем кнопку "Вернуться в главное меню" в конце
+        keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
         reply_markup = InlineKeyboardMarkup(keyboard)
-
-        await update.message.reply_text(
-            "🤝 <b>Раздел партнеров</b>\n\n"
-            "Функционал находится в разработке.\n"
-            "Скоро здесь будет список всех партнеров агентства!",
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text=message,
             parse_mode='HTML',
             reply_markup=reply_markup
         )
@@ -223,6 +319,19 @@ class ModelsTelegramBot:
             await update.message.reply_text(text, reply_markup=reply_markup, parse_mode='HTML')
         elif hasattr(update, 'callback_query') and update.callback_query:
             await update.callback_query.message.reply_text(text, reply_markup=reply_markup, parse_mode='HTML')
+        else:
+            # Если update не содержит message или callback_query, получаем chat_id из контекста
+            chat_id = None
+            if hasattr(update, 'effective_chat'):
+                chat_id = update.effective_chat.id
+            elif hasattr(update, 'callback_query') and update.callback_query:
+                chat_id = update.callback_query.message.chat_id
+
+            if chat_id:
+                from telegram.ext import ContextTypes
+                # Получаем context из параметров (нужно будет передавать context в вызовы)
+                # Пока что оставим как есть для обратной совместимости
+                pass
 
     async def delete_previous_message(self, context):
         """Удаляет предыдущее сообщение, если оно есть"""
@@ -275,6 +384,110 @@ class ModelsTelegramBot:
         except Exception as e:
             logger.error(f"Ошибка при загрузке деталей модели: {e}")
             await query.edit_message_text(text='Не удалось загрузить информацию о модели.')
+
+    async def teacher_detail(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает нажатие на кнопку учителя"""
+        query = update.callback_query
+        await query.answer()
+
+        teacher_idx = int(query.data.replace('teacher_', ''))
+
+        if teacher_idx < 0 or teacher_idx >= len(self.teachers_cache):
+            await query.edit_message_text(text='Ошибка: учитель не найден.')
+            return
+
+        teacher = self.teachers_cache[teacher_idx]
+
+        # Удаляем сообщение со списком учителей
+        await query.delete_message()
+
+        # Форматируем информацию об учителе
+        message_text = f"👨‍🏫 <b>{teacher['name']}</b>\n\n"
+
+        if teacher.get('specialty'):
+            message_text += f"🎓 <b>Специальность:</b> {teacher['specialty']}\n\n"
+
+        if teacher.get('photo'):
+            # Если есть фото, отправляем его с подписью
+            keyboard = [
+                [InlineKeyboardButton("⬅️ Назад к списку учителей", callback_data="back_to_teachers")],
+                [InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_photo(
+                chat_id=query.message.chat_id,
+                photo=teacher['photo'],
+                caption=message_text,
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+        else:
+            # Если нет фото, отправляем только текст
+            keyboard = [
+                [InlineKeyboardButton("⬅️ Назад к списку учителей", callback_data="back_to_teachers")],
+                [InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text=message_text,
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+
+    async def partner_detail(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает нажатие на кнопку партнера"""
+        query = update.callback_query
+        await query.answer()
+
+        partner_idx = int(query.data.replace('partner_', ''))
+
+        if partner_idx < 0 or partner_idx >= len(self.partners_cache):
+            await query.edit_message_text(text='Ошибка: партнер не найден.')
+            return
+
+        partner = self.partners_cache[partner_idx]
+
+        # Удаляем сообщение со списком партнеров
+        await query.delete_message()
+
+        # Форматируем информацию о партнере
+        message_text = f"🤝 <b>{partner['name']}</b>\n\n"
+
+        if partner.get('website'):
+            message_text += f"🌐 <b>Сайт:</b> {partner['website']}\n\n"
+
+        if partner.get('logo'):
+            # Если есть логотип, отправляем его с подписью
+            keyboard = [
+                [InlineKeyboardButton("⬅️ Назад к списку партнеров", callback_data="back_to_partners")],
+                [InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_photo(
+                chat_id=query.message.chat_id,
+                photo=partner['logo'],
+                caption=message_text,
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+        else:
+            # Если нет логотипа, отправляем только текст
+            keyboard = [
+                [InlineKeyboardButton("⬅️ Назад к списку партнеров", callback_data="back_to_partners")],
+                [InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]
+            ]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text=message_text,
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
 
     async def show_photo_with_navigation(self, query, context: ContextTypes.DEFAULT_TYPE, model_info, photo_idx):
         """Показывает фото с кнопками навигации"""
@@ -376,6 +589,116 @@ class ModelsTelegramBot:
         # Показываем список моделей с сохраненными параметрами
         await self.list_models(update, context, page=current_page, filter_type=current_filter)
 
+    async def back_to_teachers(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает возврат к списку учителей"""
+        query = update.callback_query
+        await query.answer()
+
+        # Удаляем текущее сообщение с деталями учителя
+        await query.delete_message()
+
+        # Загружаем учителей, если они еще не загружены
+        if not self.teachers_cache:
+            teachers = self.teachers_parser.parse_list()
+            self.teachers_cache = teachers
+        else:
+            teachers = self.teachers_cache
+
+        if not teachers:
+            keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="👨‍🏫 <b>Раздел учителей</b>\n\nНе удалось загрузить список учителей. Попробуйте позже.",
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+            return
+
+        # Создаем сообщение со списком учителей
+        message = "👨‍🏫 <b>Наши преподаватели</b>\n\n"
+        message += f"Найдено {len(teachers)} преподавателей:\n\n"
+
+        # Создаем клавиатуру
+        keyboard = []
+
+        for idx, teacher in enumerate(teachers):
+            # Создаем кнопку с именем и специальностью
+            button_text = f"👨‍🏫 {teacher['name']}"
+            if teacher.get('specialty'):
+                button_text += f" ({teacher['specialty']})"
+
+            keyboard.append([InlineKeyboardButton(
+                button_text,
+                callback_data=f"teacher_{idx}"
+            )])
+
+        # Добавляем кнопку "Вернуться в главное меню" в конце
+        keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=message,
+            parse_mode='HTML',
+            reply_markup=reply_markup
+        )
+
+    async def back_to_partners(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает возврат к списку партнеров"""
+        query = update.callback_query
+        await query.answer()
+
+        # Удаляем текущее сообщение с деталями партнера
+        await query.delete_message()
+
+        # Загружаем партнеров, если они еще не загружены
+        if not self.partners_cache:
+            partners = self.partners_parser.parse_list()
+            self.partners_cache = partners
+        else:
+            partners = self.partners_cache
+
+        if not partners:
+            keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="🤝 <b>Раздел партнеров</b>\n\nНе удалось загрузить список партнеров. Попробуйте позже.",
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+            return
+
+        # Создаем сообщение со списком партнеров
+        message = "🤝 <b>Наши партнеры</b>\n\n"
+        message += f"Найдено {len(partners)} партнеров:\n\n"
+
+        # Создаем клавиатуру
+        keyboard = []
+
+        for idx, partner in enumerate(partners):
+            # Создаем кнопку с названием партнера
+            button_text = f"🤝 {partner['name']}"
+
+            keyboard.append([InlineKeyboardButton(
+                button_text,
+                callback_data=f"partner_{idx}"
+            )])
+
+        # Добавляем кнопку "Вернуться в главное меню" в конце
+        keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=message,
+            parse_mode='HTML',
+            reply_markup=reply_markup
+        )
+
     async def back_to_main(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Обрабатывает возврат в главное меню"""
         query = update.callback_query
@@ -476,6 +799,172 @@ class ModelsTelegramBot:
 
         message_text += f'\n<a href="{model_info["url"]}">Ссылка на портфолио</a>'
         return message_text
+
+    async def magazines_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает команду /magazines"""
+        # Определяем chat_id в зависимости от типа update
+        if hasattr(update, 'message') and update.message:
+            chat_id = update.message.chat_id
+            context.user_data['command_message_id'] = update.message.message_id
+        elif hasattr(update, 'callback_query') and update.callback_query:
+            chat_id = update.callback_query.message.chat_id
+        else:
+            return
+
+        # Загружаем журналы, если они еще не загружены
+        if not self.magazines_cache:
+            magazines = self.magazines_parser.parse_list()
+            self.magazines_cache = magazines
+        else:
+            magazines = self.magazines_cache
+
+        if not magazines:
+            keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_message(
+                chat_id=chat_id,
+                text="📖 <b>Архив журнала</b>\n\nНе удалось загрузить список выпусков журнала. Попробуйте позже.",
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+            return
+
+        # Создаем сообщение со списком журналов
+        message = "📖 <b>Глянцевый журнал ARMODELS</b>\n\n"
+        message += f"Найдено {len(magazines)} выпусков:\n\n"
+
+        # Создаем клавиатуру
+        keyboard = []
+
+        for idx, magazine in enumerate(magazines):
+            # Создаем кнопку только с номером выпуска
+            button_text = f"📖 {magazine['issue_number']}"
+
+            keyboard.append([InlineKeyboardButton(
+                button_text,
+                callback_data=f"magazine_{idx}"
+            )])
+
+        # Добавляем кнопку "Вернуться в главное меню" в конце
+        keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await context.bot.send_message(
+            chat_id=chat_id,
+            text=message,
+            parse_mode='HTML',
+            reply_markup=reply_markup
+        )
+
+    async def magazine_detail(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает нажатие на кнопку выпуска журнала"""
+        query = update.callback_query
+        await query.answer()
+
+        magazine_idx = int(query.data.replace('magazine_', ''))
+
+        if magazine_idx < 0 or magazine_idx >= len(self.magazines_cache):
+            await query.edit_message_text(text='Ошибка: выпуск журнала не найден.')
+            return
+
+        magazine = self.magazines_cache[magazine_idx]
+
+        # Удаляем сообщение со списком журналов
+        await query.delete_message()
+
+        # Форматируем информацию о выпуске журнала
+        message_text = f"📖 <b>{magazine['issue_number']}</b>\n\n"
+
+        if magazine.get('release_date') and magazine['release_date'] != 'Не указана':
+            message_text += f"📅 <b>Дата выхода:</b> в {magazine['release_date']}\n\n"
+
+        message_text += "Воплощение элегантности, стиля и красоты в каждом выпуске!\n\n"
+
+        # Создаем клавиатуру
+        keyboard = []
+
+        # Кнопка скачивания PDF, если есть ссылка
+        if magazine.get('pdf_url'):
+            keyboard.append([InlineKeyboardButton("⬇️ Скачать PDF", url=magazine['pdf_url'])])
+
+        # Кнопки навигации
+        keyboard.append([InlineKeyboardButton("⬅️ Назад к списку журналов", callback_data="back_to_magazines")])
+        keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        # Если есть изображение обложки, отправляем его с подписью
+        if magazine.get('cover_image'):
+            await context.bot.send_photo(
+                chat_id=query.message.chat_id,
+                photo=magazine['cover_image'],
+                caption=message_text,
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+        else:
+            # Если нет изображения, отправляем только текст
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text=message_text,
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+
+    async def back_to_magazines(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Обрабатывает возврат к списку журналов"""
+        query = update.callback_query
+        await query.answer()
+
+        # Удаляем текущее сообщение с деталями журнала
+        await query.delete_message()
+
+        # Загружаем журналы, если они еще не загружены
+        if not self.magazines_cache:
+            magazines = self.magazines_parser.parse_list()
+            self.magazines_cache = magazines
+        else:
+            magazines = self.magazines_cache
+
+        if not magazines:
+            keyboard = [[InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")]]
+            reply_markup = InlineKeyboardMarkup(keyboard)
+
+            await context.bot.send_message(
+                chat_id=query.message.chat_id,
+                text="📖 <b>Архив журнала</b>\n\nНе удалось загрузить список выпусков журнала. Попробуйте позже.",
+                parse_mode='HTML',
+                reply_markup=reply_markup
+            )
+            return
+
+        # Создаем сообщение со списком журналов
+        message = "📖 <b>Глянцевый журнал ARMODELS</b>\n\n"
+        message += f"Найдено {len(magazines)} выпусков:\n\n"
+
+        # Создаем клавиатуру
+        keyboard = []
+
+        for idx, magazine in enumerate(magazines):
+            # Создаем кнопку только с номером выпуска
+            button_text = f"📖 {magazine['issue_number']}"
+
+            keyboard.append([InlineKeyboardButton(
+                button_text,
+                callback_data=f"magazine_{idx}"
+            )])
+
+        # Добавляем кнопку "Вернуться в главное меню" в конце
+        keyboard.append([InlineKeyboardButton("🏠 Вернуться в главное меню", callback_data="back_to_main")])
+
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        await context.bot.send_message(
+            chat_id=query.message.chat_id,
+            text=message,
+            parse_mode='HTML',
+            reply_markup=reply_markup
+        )
 
     def run(self):
         """Запускает бота"""
